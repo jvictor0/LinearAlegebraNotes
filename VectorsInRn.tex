@@ -1,0 +1,517 @@
+\section{Vectors in $\R^n$}
+
+\subsection{Motivation}
+
+By now, you probably feel pretty comfortable doing mathematics with a single variable.
+You can add, subtract, multiply, divide, calculate trigonometric functions and even take derivatives an integrals.  
+You are probably quite used to the situation when you have one ``independent variable'', perhaps called $x$, and one ``dependent variable'', perhaps called $y=f(x)$.  
+Perhaps you can even throw in a $z$ or a $w$ without panicking, but, unfortunately, many (if not most) problems arising naturally in every branch of science and engineering will have hundreds or thousands or millions of variables.  
+One quickly becomes bogged down in complexity.
+We need a way to organize all this data which hopefully enlightens, informs and even inspires us.
+This will be perhaps the primary goal of a first course in linear algebra.  
+
+Back in the single variable days, we would say $x$ is a real number, of $x\in \R$, and visualize $x$ as living on the ``number line'' (which we will call $\R^1$). 
+We might consider a pair of real numbers $(x,y)$, and draw it as a point on a plane ($\R^2$), or a triple $(x,y,z)$ and draw it as a point in space ($\R^3$).  
+Obviously, we can draw these points on a plane or in space \emph{even} if they don't represent an actual location; say if we want to plot money vs time, 
+It still helps to think about it ``geometrically''.  
+The brilliant-yet-simple observation is this:  
+while one cannot so easily draw the point $(x,y,z,w)$, there is absolutely nothing stopping us from writing down a 4-tuple, or a 5-tuple, or a 34-tuple, or a 3511-tuple.
+
+\begin{Def}[Vectors and the Vector Space $\R^n$]
+  Define $\R^n$ to be the set of $n$-tuples of real numbers $(x_1,x_2,...,x_n)$.  
+  We will often refer to $\R^n$ as a \emph{vector space} and call the tuples in $\R^n$ \emph{vectors}.  
+  We will denote vectors by lower-case letters with arrows above them, like $\vec{x}=(x_1,x_2,...,x_n)$.  
+  We will sometimes call a real number a \emph{scalar}, to distinguish it from a vector.  
+  We will call the numbers in a vector the \emph{coordinates}.  
+\end{Def}
+
+
+\begin{Remark}
+  Notice I did not mention ``magnitude and direction''\footnote{Like the nemesis from Despicable Me}.  
+  An arrow with a certain length pointing in a certain direction is a great image to have in your head, 
+  but you might have trouble saying what you mean by ``direction'' when $n>3$.  
+  Still, if the mnemonic might helps you visualize the situation at hand, then all the better.
+\end{Remark}
+
+\begin{Remark}
+  There isn't much of a difference between a scalar $x\in \R$ and a 1-dimensional vector $\vec{x}=(x_1)\in \R^1$.  
+  While it does not much matter, we will call it a vector $\vec{x}$ when we want to emphasize vector-like properties and a scalar $x$ otherwise.  
+  When trying to understand $\R^n$ in general, always keep in mind what happens in $\R^1$.  The situation will almost always be extremely simple, but possibly enlightening.  
+\end{Remark}
+
+\begin{Remark}
+  Some people will tell you there's a difference between points and vectors.  We will not make that distinction in these notes.  
+\end{Remark}
+
+\begin{UnimportantRemark}
+  What is $\R^0$?  
+  If $\R^1$ is a line and $\R^2$ is a plane, then $\R^0$ should be a point.  
+  Therefor we say there is but one vector in $\R^0$, and we'll call it $\vec{0}$.  
+  Of course, this will never be important, so if you feel disturbed by 0-tuples, feel free to ignore $\R^0$.  
+\end{UnimportantRemark}
+
+\subsection{Addition and Subtraction}
+
+We define addition of vectors as one might expect.
+Let $\vec{x}$ and $\vec{y}$ be two vectors in $\R^n$, that is,
+\[\vec{x}=\vect{x_1 \\ \vdots \\ x_n}\]
+\[\vec{y}=\vect{y_1 \\ \vdots \\ y_n}\]
+Then we define
+\[\vec{x}+\vec{y}=\vect{x_1+y_1 \\ \vdots \\ x_n+y_n}\]
+that is, we just add vectors ``coordinate by coordinate''.
+Thus, in $\R^3$, 
+\[\vect{1 \\ 2 \\ 3} + \vect{4 \\ 5 \\ 6} = \vect{5\\7\\ 9}\]
+Subtraction is done in much the same way:
+\[\vec{x}-\vec{y}=\vect{x_1-y_1 \\ \vdots \\ x_n-y_n}\]
+so
+\[\vect{4 \\ 3 \\ 2} + \vect{1 \\ 2 \\ 3} = \vect{3\\1\\-1}\]
+\begin{Ex}
+  Interpret addition of vectors in $\R^2$ geometrically.  
+  If $\vec{x}$ and $\vec{y}$ are two points in the plane, can you come up with a geometric rule for the position of $\vec{x}+\vec{y}$?
+  What about $\vec{x}-\vec{y}$?  
+  (hint: what happens when you connect the dots $(0,0)$, $\vec{x}$, $\vec{y}$ and $\vec{x}+\vec{y}$?)
+\end{Ex}
+\begin{Ex}
+  \label{sec:abgroup-laws}
+
+  Convince yourself that vector addition is ``commutative'', that is $\vec{x}+\vec{y}=\vec{y}+\vec{x}$. 
+  Then convince yourself it is ``associate'', that is $(\vec{x}+\vec{y})+\vec{z}=\vec{x}+(\vec{y}+\vec{z})$. 
+  If you're unsure of how to begin, write out the right side and left side of each equation and notice they are the same.  
+  Use the fact that scalar addition is commutative and associative.  
+\end{Ex}
+
+Let $\vec{0}$ be the vector with zero in each coordinate, that is 
+\[\vec{0}=\vect{0 \\ \vdots \\ 0}\]
+\begin{EasyEx}
+  Let $\vec{x}\in \R^n$ be any vector.  Show $\vec{x}+\vec{0} = \vec{x}$.  
+  Show that $\vec{x}-\vec{x}=\vec{0}$.
+\end{EasyEx}
+We see that addition and subtraction of vectors obey some laws we are already used to.
+Vector addition is just an extension of scalar addition; we're just adding and subtracting in bulk!
+
+
+\subsection{Scalar Multiplication}
+There is nothing stopping us from defining multiplication or division ``coordinate by coordinate'', but we will not do this, because we do not need to.  
+While we don't allow multiplying two vectors, we do allow multiplying a scalar by a vector.  
+Let $c\in \R$ be a scalar and $\vec{x}\in\R^n$.  
+Define $c\cdot \vec{x}$ by
+\[c\cdot\vec{x}=\vect{c\cdot x_1 \\ \vdots \\ c\cdot x_n}\]
+\begin{ImpEasyEx}
+  Interpret scalar multiplication of vectors in $\R^2$ geometrically.  
+  If $\vec{x}$ is a vector and $c$ a scalar, where is $c\cdot\vec{x}$?
+  (hint: do $c>0$, $c=0$ and $c<0$ separately).  
+\end{ImpEasyEx}
+\begin{ImportantRemark}
+  In the past, everything in sight has been a number, so one didn't need to worry about mixing apples and oranges.
+  In linear algebra, there one must keep straight many different fruits: infinitely fruits many in fact!
+  One cannot add a vector and a scalar, nor can you add a vector in $\R^n$ with a vector in $\R^m$ if $n\ne m$.  
+  A vector plus a vector is a vector of the same size.  
+  One cannot multiply vectors, but one can multiply a vector times a scalar and get a new vector of the same size.
+  The following easy exercise should give you a chance to practice keeping track of types.  
+\end{ImportantRemark}
+\begin{ImpEasyEx}
+  \label{sec:module-laws}
+  The following laws should be easy to show.
+  \begin{enumerate}[a)]
+  \item $0\cdot\vec{x} = \vec{0}$
+  \item $(a+b)\cdot\vec{x} = a\cdot\vec{x} + b\cdot\vec{x}$
+  \item $a\cdot (\vec{x} + \vec{y}) = a\cdot\vec{x} + a\cdot\vec{y}$
+  \item $(a\cdot b)\cdot\vec{x} = a\cdot (b\cdot\vec{x})$
+  \end{enumerate}
+\end{ImpEasyEx}
+
+\begin{RemarkExp}
+  It turns out that \ref{sec:abgroup-laws} and \ref{sec:module-laws} are actually the only properties one really needs to do linear algebra.
+  Rather than only considering $\R^n$, we could consider ``any object with these properties'', and much of what we will say will come out exactly the same.
+  We choose to consider only $\R^n$ for the sake of concreteness.  
+\end{RemarkExp}
+
+
+
+\section{Spans of Vectors}
+
+Let us begin with the definition.
+\begin{Def}
+  Let $\vec{v_1},\cdots,\vec{v_k}$ be vectors in $\R^n$.
+  Then we say another vector $\vec{x}\in\R^n$ is in the span of $\vec{v_1},\cdots,\vec{v_k}$, written $\vec{x}\in\spanv{\vec{v_1},\cdots,\vec{v_k}}$, if there are $k$ scalars $c_1,\cdots, c_k$ such that 
+  \[\vec{x} = c_1\vec{v_1}+\cdots+c_k\vec{v_k}\]
+\end{Def}
+
+This is a rather abstract definition, so lets unpack it a bit.
+\begin{EasyEx}
+  Let $\vec{x}\ne \vec{0}$ be any vector in $\R^n$.  Describe
+  \begin{enumerate}[a)]
+  \item $\spanv{\vec{x}}$
+  \item $\spanv{\vec{x},2\vec{x}}$
+  \item $\spanv{\vec{0}}$
+  \item If $\vec{x},\vec{y}$ are two vectors in $\R^3$ that are not multiples of each other, describe $\spanv{\vec{x},\vec{y}}$.  
+  \end{enumerate}
+\end{EasyEx}
+
+\begin{EasyEx}
+  Show that for \emph{any} $\vec{x_1},\cdots,\vec{x}_k$, $\vec{0}\in\spanv{\vec{x_1},\cdots,\vec{x_k}}$
+\end{EasyEx}
+
+\section{Linear Independence}
+
+\begin{Def}
+  We say that a set of vectors $\vec{v_1},\cdots,\vec{v_k}\in\R^n$ is linearly dependent if there is a set of scalars $c_1,...,c_k$, \emph{at least one nonzero}, such that
+  \[c_1\vec{v_1}+\cdots+c_k\vec{v_k} = \vec{0}\]
+  A set is linearly independent if it is not linearly dependent.  
+\end{Def}
+
+\begin{Remark}
+  \label{sec:redundant}
+  If a set of vectors are linearly dependent, at least one of the vectors is ``redundant''; you could throw out a vector without changing the span.  
+  Do you see why this is?
+\end{Remark}
+
+\begin{UnimpEx}
+  If one of the $v_i=\vec{0}$, is $\vec{x_1},\cdots,\vec{x_k}$ linearly independent?  
+\end{UnimpEx}
+
+\begin{Ex}
+  Show that the span of any two vectors in $\R^1$ are linearly dependent.
+  What about three vectors in $\R^2$?
+  What about $n+1$ vectors in $\R^n$ (trickier).  
+\end{Ex}
+
+\begin{ImpEx}
+  Make \ref{sec:redundant} precise, and prove it!
+  (hint: suppose $c_1\vec{v_1}+\cdots+c_k\vec{v_k} = \vec{0}$ and $c_1\ne 0$, so you can divide by it.  Now ``solve for'' $\vec{v_1}$)
+\end{ImpEx}
+
+
+\section{Dot and Cross Products}
+
+To be written
+
+\section{Systems of Linear Equations}
+
+Systems of linear equations are ubiquitous in all branches of science and engineering.
+Being able to identify, understand and solve them is an invaluable tool for anyone who wants to deal with data.
+Systems of linear equations will appear as a sub-problem in an extraordinary number of contexts and you must be able to deal with them when they appear.
+Luckily there are tons of computer packages which can help you deal with them when they appear in real life situations... but first you need to learn the rules!
+Studying linear equations--their anatomy and solutions--will be the topic of the first half of these notes.
+
+\subsection{The Problem}
+
+A linear equation is an equation of the form
+\[m_1 x_1 + \cdots + m_n x_n + b = 0\]
+where the $m_i$ and $b$ are fixed numbers and the $x_i$ are variables.  If $n=1$, this is just very familiar; 
+\[mx +b = 0\]
+When $n=2$, these equation are 
+\[ax+by=c\]
+and they implicitly define a line (I am playing fast and loose with the variable names here.  If $n$ is small, you can, if you so please, call $x_1$ by $x$ and $x_2$ by $y$).
+Notice that there could be lots of solutions for $n> 1$, for instance there are infinitely many on a line.  
+Notice, however, that there need not be \emph{any} solutions.  For instance, consider
+\[0\cdot x + 1 = 0\]
+
+
+\begin{EasyEx}
+  \label{sec:dot-is-lineareq}
+  Let $\vec{m},\vec{x}\in\R^n$, where $\vec{m}$ is some fixed vector and $\vec{x}$ is a variable vector. 
+  Show that the equation
+  \[\vec{m}\cdot\vec{x} = -b\]
+  is ``the same'' as a linear equation.  (hint: vector dot vector = scalar)
+\end{EasyEx}
+
+\begin{Remark}
+  The nice thing about writing a linear equation in the above way is that it emphasizes the ``geometric'' nature of linear equations.
+  Sure, the original definition is strictly ``algebraic'', but considering the set of solutions as points in $\R^n$ immediately gives us an intuitive picture for what would otherwise just be a mess of numbers.  
+
+  Temporarily, let us restrict to the case $b=0$ and $\vec{m}\ne \vec{0}$.  
+  Then, by \ref{sec:dot-is-lineareq}, the set of solutions to the linear equation $\vec{m}\cdot\vec{x}=0$ is merely the set of all vectors orthogonal to $\vec{m}$.  
+  If $\vec{m}\in\R^2$, vectors on the line perpendicular to $\vec{m}$ solve this equation.  
+  If $\vec{m}\in\R^3$, vectors in the plane perpendicular to $\vec{m}$ solve this equation.
+  This ``geometric'' intuition remains correct when $n\ge 3$.  
+  When we talk about dimension, we will be able to make this precise, but in $\R^n$ the set of solutions to $\vec{m}\cdot\vec{x}=0$ should be somehow an $(n-1)$-dimensional ``plane''.  
+\end{Remark}
+
+If we had two vectors, $\vec{m}_1$ and $\vec{m}_2$, we could consider the set of all vectors which \emph{simultaneously} solved $\vec{m}_1\cdot\vec{x}=b_1$ and $\vec{m}_2\cdot\vec{x}=b_2$.  
+\begin{Ex}
+  Let $n=3$ and $b_1=b_2=0$.  Describe, geometrically, the set of vectors $\vec{x}$ with $\vec{m}_1\cdot\vec{x}=\vec{m}_2\cdot\vec{x}=0$, if  
+  \begin{enumerate}[a)]
+  \item $\vec{m}_1$ and $\vec{m}_2$ are linearly independent.
+  \item $\vec{m}_1$ and $\vec{m}_2$ are linearly dependent, but both nonzero.  
+  \end{enumerate}
+\end{Ex}
+
+\begin{Def}
+  A system of linear $m$ linear equations in $n$ variables is a list of equations
+  \[\begin{array}{ccccccccc}
+    a_{1,1}x_1 & + & \cdots & + & a_{1,n}x_n & - & b_1 & = 0\\
+    \vdots     &   & \ddots &   & \vdots     &   & \vdots\\
+    a_{m,1}x_1 & + & \cdots & + & a_{m,n}x_n & - & b_m & = 0
+  \end{array}\]
+  where the $a_{i,j}\R$ are constants and the $x_i$ are variables.
+  A system is called homogeneous if all the $b_i=0$, and inhomogeneous otherwise.  
+  A system is inconsistent if there are no solutions.  
+\end{Def}
+
+\begin{Remark}
+  \label{sec:confusing}
+  We changed the name of the coefficients from $m$ to $a$ with a full system of linear equations because, traditionally, 
+  $m$ is the number of equations and $n$ is the number of variables.  
+  This convention is horribly confusing because, not only do the letters in question have little mnemonic meaning, but they rhyme!  
+  Beware of confusing the two.  
+\end{Remark}
+
+\begin{ImpEx}
+  Come up with an example of a system of linear equations with
+  \begin{enumerate}[a)]
+  \item exactly one solution.
+  \item more than one solutions.
+  \item no solutions
+  \end{enumerate}
+  (hint: these can all be done with a single equation and a single variable, that is, $m=n=1$)
+\end{ImpEx}
+
+\begin{EasyEx}
+  Extend \ref{sec:dot-is-lineareq} to a system of $m$ linear equations.  
+\end{EasyEx}
+
+\begin{EasyEx}
+  Show a homogeneous system of linear equations has at least one solution.  (hint: it should feel like cheating)
+\end{EasyEx}
+
+\begin{Ex}
+  If you add an additional equation to a system of $m$ equations in $n$ variables, show that the solution set either stays the same or gets smaller (hint: a solution to the new system of $m+1$ equations is also a solution to the first $m$ equations).  
+  In the case of a homogeneous system, can you come up with a rule telling if the solution set will shrink or stay the same? (hint: write system as in \ref{sec:dot-is-lineareq} and consider the span of the first $m$ coefficient vectors $\vec{a_i}$)
+\end{Ex}
+
+
+\subsection{The Solution}
+
+It turns out that there is a single, end-all solution to this problem. 
+First of all, you could try using the substitution method.  
+The best way of seeing why this is inefficient is trying it.
+\begin{UnimpEx}
+  Pick a system of linear equations from the text and try solving it by substitution.
+  Make sure you have plenty of paper.  
+  Do you see why this is kind of a bad idea.
+\end{UnimpEx}
+The other alternative is called Gaussian Elimination or Row Reduction.  
+Consider the system
+\[\begin{array}{ccccccccc}
+  a_{1,1}x_1 & + & \cdots & + & a_{1,n}x_n & - & b_1 & = 0\\
+  \vdots     &   & \ddots &   & \vdots     &   & \vdots\\
+  a_{m,1}x_1 & + & \cdots & + & a_{m,n}x_n & - & b_m & = 0
+\end{array}\]
+We will develop a group of very simple operations, each of which does not change the solution set.  
+The idea is this:
+if you know modifying the system in a certain way will not change the solution set, you are of course free to do that modification.
+If that modification makes the system simpler, then you have made progress.  
+It is merely a generalization of the very familiar principle that if you see ``$x-4=5$'', you want to ``subtract 4 from both sides'', because you know that operation does not change the solution, but will make the equation much simpler.  
+
+The first operation is just swapping the position of two equations.  
+Next, is multiplying through by a scalar, that is, if you had an equation
+\[a_{i,1}x_1 + \cdots + a_{i,n}x_n - b_i  = 0\]
+and $c$ is some nonzero scalar, then replace this equation with
+\[(ca_{i,1})x_1 + \cdots + (ca_{i,n})x_n - (cb_i)  = 0\]
+Finally, you can replace an equation with the sum of two other equations, that is, given two equations from the system
+\[\begin{array}{ccccccccc}
+  a_{i,1}x_1 & + & \cdots & + & a_{i,n}x_n & - & b_i & = 0\\
+  a_{j,1}x_1 & + & \cdots & + & a_{j,n}x_n & - & b_j & = 0
+\end{array}\]
+replace one of them with
+\[\begin{array}{ccccccccc}
+  (a_{i,1} + a_{j,1})x_1 & + & \cdots & + & (a_{i,n} + a_{j,n})x_n & - & (b_i + b_j) & = 0
+\end{array}\]
+
+\begin{Ex}
+  \label{sec:gaussElimRules}
+  Verify that the follwoing three operation do not change the solution set.  
+  \begin{enumerate}[a)]
+  \item Swapping two equations
+  \item Multiplying an equation by a non-zero scalar
+  \item Replacing an equation with the sum of two equations
+  \end{enumerate}
+  Your answer should be of the form ``If $x_1,...,x_n$ is some solution, and we do an operation, then the resulting system of equations has the same solution set, because $<$fill in the blank$>$''.  Notice how the sentence above does not depend on you knowing what that solution is, or even that one exists.  
+\end{Ex}
+
+Thus, if you want to find a solution to a system of equations, you know you won't get the wrong answer by using these operations.  
+\begin{ImpEx}
+  \label{sec:gaussElim}
+  Try out a few examples from the text; pick a system of linear equations and apply these operations until the system is simple enough for you to solve ``by hand''.
+  Invent strategies for clearing out variables and see just how simple you can make a system.
+  Try to get as many variables as possible to appear in only one equation.
+  How do you know when you're ``done''?
+\end{ImpEx}
+
+
+\subsection{Examples of Systems of Linear Equations in Nature}
+
+\section{Matrices}
+
+You probably noticed in \ref{sec:gaussElim} a few things.
+First of all, you might have noticed that ``leaving a blank spot'' when a variable didn't appear in an equation was useful (if not, think about why it might be).  
+For instance, it would be useful to write the system like this:
+\[\begin{array}{ccccccccc}
+  x_1 & + & 5x_2 & + & -3x_3 & - & 2 & = 0\\
+   &  & 2x_2 & &  & - & 5 & = 0
+\end{array}\]
+rather than
+\[\begin{array}{ccccccccc}
+  x_1 & + & 5x_2 & + & -3x_3 & - & 2 & = 0\\
+   2x_2 & -& 5 & = & 0
+\end{array}\]
+Lining things up is helpful because it suggests row reduction strategies and allows you to check on your ``progress'' at a glance.
+
+The second thing you might have noticed is that you spend an awful lot of time drawing $x$'s and $+$'s, even though they don't really tell you anything interesting, especially if you aligned your system as mentioned above.
+Thus it would be just as good to only write the coefficients, so long as you kept track of the blank spaces by putting a zero.
+We don't even really have to keep track of the right hand side of the equation, because we know its just a zero.  
+Thus we could write the system above ``compactly'' as
+\[\left(\begin{array}{cccc}
+  1 & 5 & -3 &  2\\
+  0 & 2 & 0  &  5
+\end{array}\right)\]
+
+We define a matrix just like we did a vector
+\begin{Def}[Matrix]
+  An $m\times n$ \emph{matrix} is a rectangular array of real numbers with $n$ columns and $m$ rows.  
+  If $A$ is an $m\times n$ matrix, we denote the entry in column $i$ and row $j$ by $A_{i,j}$.
+\end{Def}
+
+\begin{Remark}
+  It is important to remember this is just a syntactic transformation: just an easier way of writing down a system of equations.
+  It means the exact same thing, although we hope this format can yield insight about the problem at hand.   
+\end{Remark}
+
+\begin{Remark}
+  Everybody gets the order of the entries confused. 
+  I often write down a matrix you wonder if it should be $m\times n$ or $n\times m$, I find this horribly confusing (see \ref{sec:confusing}).
+  Just always remember $n$ is the number of variables and figure it out from there.  
+\end{Remark}
+
+\begin{RemarkProg}
+  This translates quite literally to a programming paradigm: store the ``system of an equation'' in a 2-d array.  
+  This is good because you don't need to waste memory on the $x_i$'s, has good locality and if you want to know ``the coefficient of $x_3$ in equation 2'', you just look at $A[2][3]$. 
+  Interestingly, if space is limited and you have a large system where each equation only has a few variables (called a sparse system), you end up wasting a lot of space on zeros, so a ``literal'' format might be preferred.  
+\end{RemarkProg}
+
+We might wish to remind ourselves that the $b_i$ special, in the sense that they are not to be eventually multiplied by an $x_i$.  
+This leads to the concept of an ``augmented matrix'', which is a purely syntactic concept designed to keep us from getting confused while working with matrices.  
+
+\begin{Def}[Augmented Matrix]
+  We will often draw a vertical dashed line separating the $b_i$'s column from the rest of the matrix, just to visually remind elf's what the matrix represents.  
+  We call such a \emph{matrix augmented}.  
+\end{Def}
+
+I find Gaussian Elimination is easier to think about with matrices, since the operations are just row-wise additions, multiplications and swaps.  
+\begin{Ex}
+  What do the Gaussian Elimination rules (\ref{sec:gaussElimRules}) look like in matrix form?  
+\end{Ex}
+
+In \ref{sec:gaussElim}, I asked how do you know when you're done?  
+With the system written as a matrix, this is an easy-to-check.   
+You are done when your matrix is in ``reduced row echelon form'', or ``rref''.  
+That is a scary sounding name (I have no idea with echelon means), but it just means the following.
+\begin{Def}[Reduced Row Echelon Form]
+  An $m\times n$ matrix $A$ is in \emph{reduced row echelon form} if
+  \begin{enumerate}
+  \item Each column either contains only a single 1 (and the rest zeros), or the nonzero entries are \emph{not} the row's leftmost nonzero entry.
+  \item The rows are sorted by their first nonzero entry.
+  \end{enumerate}
+  We call columns with only a single one \emph{pivot columns} and otherwise \emph{free columns}.  
+\end{Def}
+
+\begin{Def}[Gaussian Elimination]
+  Gaussian Elimination is the process of using cleverly chosen row operations until a matrix is in reduced row echelon form.  
+\end{Def}
+
+Why is reduced row echelon form so nice?  
+
+\begin{Example}
+  \label{sec:gaussexamp}
+  Consider this rref'd matrix.
+  \[\left(\begin{array}{cccc}
+      1 & 0 & -3 &  2\\
+      0 & 1 & 1  &  \frac{1}{2}\\
+      0 & 0 & 0 & 0
+    \end{array}\right)\]
+  Remember that a matrix is just shorthand for a system of equations
+  \[\begin{array}{cccccccc}
+    x_1 & + & & & -3x_3 & - &  2 & = 0\\
+    & & x_2& + & x_3 & - &  \frac{1}{2} & = 0\\
+    & & & &&  &  0 & = 0\\
+  \end{array}\]
+  Notice that you can set $x_3$ to anything you want and you automatically know what $x_1$ and $x_2$ are; that is, we can rearrange the system to look like.
+  \[\begin{array}{cccccccc}
+    x_1 & = & 3x_3 & + &  2\\
+    x_2& = & -x_3 & + &  \frac{1}{2}\\
+    0 &=&0
+  \end{array}\]
+  Thus for each possible value of $x_3$ there is exactly one solution to the system.  
+  This is about as simple a system of equations as you can ask for, as it has the property that you can ``just plug in any value for $x_3$ and get a solution''.  
+  However, we can actually write this in a slightly ``slicker'' form.
+  We know that the solution to the system is a vector 
+  \[\vec{x}=\vect{x_1 \\ x_2 \\ x_3}\]
+  As we saw before, we can write $x_1$ and $x_2$ in terms of $x_3$.  
+  In a completely trivial way, (the kind of way which is so trivial you'd never think of it), we can ``write $x_3$ in terms of $x_3$''.  
+  How?  $x_3=x_3$ (womp womp).  
+  Thus we can write this as
+  \[\vec{x}=\vect{x_1 \\ x_2 \\ x_2}= \vect{3x_3+2 \\ -x_3+\frac{1}{2} \\ x_3}\]
+  We can do better still.  
+  Each of the coordinates of the right hand vector are of the form $ax_3+b$, where $b=0$ in the last coordinate.  
+  Thus we can split this vector up as a sum, and then factor out the $x_3$, like so:
+  \[\vec{x}=\vect{x_1 \\ x_2 \\ x_2}= \vect{3x_3+2 \\ -x_3+\frac{1}{2} \\ x_3}
+  =\vect{3x_3 \\ -x_3 \\ x_3}+\vect{2 \\ \frac{1}{2} \\ 0} = x_3\vect{3 \\ -1 \\ 1}+\vect{2 \\ \frac{1}{2} \\ 0}\]
+  This is very cool!
+  Writing the solution this way emphasizes the geometric nature of the solution set, and makes it is obvious that the solutions form a line!
+  Do you see why?
+\end{Example}
+
+\begin{ImpEx}
+  \label{sec:guassexampex}
+  Convince yourself the solution set forms a line in $\R^3$.  
+  Can we interpret this as ``the line line going through a certain point in a certain direction''?
+\end{ImpEx}
+
+\begin{ImpEx}
+  \label{sec:gaussexamp2}
+  Go through the logic of \ref{sec:guassexamp} for the following rref'd matrix, and then do \ref{sec:guassexampex} for it.  
+  \[\left(\begin{array}{ccccc}
+      1 & 0 & -3 & -1 & 2\\
+      0 & 1 & 1  &  4 & \frac{1}{2}\\
+      0 & 0 & 0 & 0
+    \end{array}\right)\]
+  What is the geometry of the solution set? (hint: the system is the same except for there is one more free variable)
+\end{ImpEx}
+
+\begin{Def}[Parametric Form]
+  We call a solution to a system of equations in parametric form if it is written a constant vector plus a sum of variables times constant vectors, as in \ref{sec:gaussexamp} and \ref{sec:gaussexamp2}
+\end{Def}
+
+\begin{Example}
+  Consider the following matrix in rref.  
+  \[\left(\begin{array}{cccc}
+      1 & 0 & -3 &  0\\
+      0 & 1 & 1  &  0\\
+      0 & 0 & 0 & 1
+    \end{array}\right)\]
+  Notice the bottom row has non nonzero entries corresponding to any $x_i$, but a nonzero entry in the $\vec{b}$ column.  
+  Thus when we write out the system of equations, we get
+    \[\begin{array}{cccccccc}
+    x_1 & + & & & -3x_3 &  &   & = 0\\
+    & & x_2& + & x_3 &  &   & = 0\\
+    & & & &&  &  1 & = 0\\
+  \end{array}\]
+  We know that $1\ne 0$, so no matter what the $x_i$ are, the bottom equation is false, and thus the whole system is false, so the system has no solutions.  
+\end{Example}
+
+\begin{Ex}
+  Show that a system of linear equations is inconsistent if and only if the last column is a pivot column in the rref form.  
+  (hint: show the method of parametrization from \ref{sec:gaussexamp} and \ref{sec:gaussexamp2} works whenever the last column is not a pivot)
+\end{Ex}
+
+\begin{ExProg}[(optional)]
+  Try writing a computer program (in the language of your choice) to put a matrix in rref. 
+\end{ExProg}
+
+
+
+\section{Matrix Vector Products}
+
+I admit I lied slightly in the previous chapter.
+A matrix is just a 2-d array of numbers, 

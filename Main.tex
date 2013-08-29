@@ -1,0 +1,80 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate} 
+\usepackage{amsfonts}
+\usepackage{fge}
+%\usepackage[small,nohug,heads=LaTeX]{diagrams}
+%\diagramstyle[labelstyle=\scriptstyle]
+\usepackage{sseq}
+\usepackage{appendix}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{txfonts}
+
+\begin{document}
+
+
+\newcommand{\A}[0]{\mathcal{A}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\OO}[0]{\mathcal{O}}
+\newcommand{\F}[0]{\mathbb{F}}
+\newcommand{\binomial}[2]{\left(\begin{array}{c}#1\\#2\end{array}\right)}
+\newcommand{\from}[0]{\longleftarrow}
+\newcommand{\vect}[1]{\left(\begin{array}{c}#1\end{array}\right)}
+
+\newtheorem{Def}{Definition}[section]
+\newtheorem{Theorem}[Def]{Theorem}
+\newtheorem{Lemma}[Def]{Lemma}
+\newtheorem{Cor}[Def]{Corollary}
+\theoremstyle{remark}
+\newtheorem{Remark}[Def]{Remark}
+\newtheorem{UnimportantRemark}[Def]{Unimportant Remark}
+\newtheorem{ImportantRemark}[Def]{Important Remark}
+\newtheorem{RemarkExp}[Def]{Remark For Experts}
+\newtheorem{RemarkProg}[Def]{Remark For Programmers}
+\newtheorem{Ex}[Def]{Exercise}
+\newtheorem{ExProg}[Def]{Exercise for Programmers}
+\newtheorem{ImpEx}[Def]{Important Exercise}
+\newtheorem{UnimpEx}[Def]{Unimportant Exercise}
+\newtheorem{ImpEasyEx}[Def]{Important Easy Exercise}
+\newtheorem{EasyEx}[Def]{Easy Exercise}
+\newtheorem{TrickyEx}[Def]{Tricky Exercise}
+\newtheorem{Example}[Def]{Example}
+
+\newcommand{\Hom}{\operatorname{Hom}\nolimits}
+\newcommand{\Ext}{\operatorname{Ext}\nolimits}
+\newcommand{\Torsion}{\operatorname{Torsion}\nolimits}
+\newcommand{\Cyl}{\operatorname{Cyl}\nolimits}
+\newcommand{\Ker}{\operatorname{Ker}\nolimits}
+\newcommand{\im}{\operatorname{Im}\nolimits}
+\newcommand{\spanv}[1]{\operatorname{Span}\nolimits\left\{#1\right\}}
+
+
+
+\title{Joseph's Linear Algebra Notes}
+\author{Joseph Victor}
+\maketitle
+
+
+\newpage
+\tableofcontents
+\newpage
+
+\input{VectorsInRn.tex} 
+
+
+\newpage
+%\appendix
+%\appendixpage
+%\addappheadtotoc
+
+%\newpage
+%\bibliographystyle{alpha}
+%\bibliography{myrefs}
+\end{document}
+
