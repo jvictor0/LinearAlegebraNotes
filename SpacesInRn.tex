@@ -1,6 +1,4 @@
 \part{Spaces in $\R^n$}
-\newpage
- 
 \section{Null Space}
 
 We want to say that the equation $A\vec{x}=\vec{b}$ generalizes $ax=b$, but we have to notice that the situation \emph{is} sightly different.  
@@ -17,6 +15,13 @@ To measure this phenomenon, we introduce the null space, which is merely a speci
 \begin{Remark}
   We always want to think about the types.  If $A$ is $m\times n$, the null space vectors must be $n$-dimensional (why again?).  
   Thus we observe that $N(A)$ is a subset of $\R^n$.
+\end{Remark}
+\begin{Remark}
+  You might have seen 
+  \[N(A) = \left\{\vec{x}\in \R^n \right|\left. A\vec{x}=\vec{0} \right\}\]
+  In English this says ``the null space of $A$ is the set of all things that go to zero when you multiply by $A$''.
+  I prefer to say ``a vector is in the null space of $A$ if multiplying it by $A$ gives zero'', but it should be clear that these mean the same thing.
+  The point is that, given a vector $\vec{x}$ and a matrix $A$, you can ``test'' whether or not it is in the null space by computing $A\vec{x}$ and seeing if it is zero.
 \end{Remark}
 \begin{EasyEx}
   Show that for \emph{any} matrix $A$, $\vec{0}\in N(A)$.  

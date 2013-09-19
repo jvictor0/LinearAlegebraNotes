@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{report}
+\documentclass[a4paper,12pt]{book}
 \usepackage[margin=0.75in]{geometry}
 \usepackage{amsthm}
 \usepackage{amsmath}
@@ -121,8 +121,12 @@
 \author{Joseph Victor}
 \maketitle
 
+\frontmatter
+
+\subfile{Preface.tex}
 \newpage
 \tableofcontents
+\mainmatter
 \newpage
 \subfile{VectorsInRn.tex} 
 \subfile{SpacesInRn.tex} 
