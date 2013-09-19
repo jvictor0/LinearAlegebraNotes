@@ -1,0 +1,377 @@
+\part{Spaces in $\R^n$}
+\newpage
+ 
+\section{Null Space}
+
+We want to say that the equation $A\vec{x}=\vec{b}$ generalizes $ax=b$, but we have to notice that the situation \emph{is} sightly different.  
+Consider for instance the homogeneous case, $ax=0$.  If $a\ne 0$, then the only solution is $x=0$.
+However, the situation in many variables is a big more subtle: you can multiply a nonzero matrix by a nonzero vector and get the zero vector!
+Actually, this shouldn't be that surprising, you may have quietly observed this phenomenon when solving some homogeneous system of linear equations and finding many solutions, but that was before we started writing the system as a multiplication.  
+To measure this phenomenon, we introduce the null space, which is merely a special case of a something you're already used to.
+\begin{Def}[Null Space]
+  Given an $m\times n$ matrix $A$, The null space of $A$ (written $N(A)$) is the set of solutions of the system of equations 
+  \[A\vec{x}=\vec{0}\]
+  That is, a vector $\vec{x}\in N(A)$ if $A\vec{x}=\vec{0}$.
+  In some text it will be called the kernel, and written $\Ker(A)$, but we will not use this notation.  
+\end{Def}
+\begin{Remark}
+  We always want to think about the types.  If $A$ is $m\times n$, the null space vectors must be $n$-dimensional (why again?).  
+  Thus we observe that $N(A)$ is a subset of $\R^n$.
+\end{Remark}
+\begin{EasyEx}
+  Show that for \emph{any} matrix $A$, $\vec{0}\in N(A)$.  
+\end{EasyEx}
+\begin{Ex}
+  Show that the columns of $A$ are linearly independent if and only if $\vec{0}$ is the \emph{only} vector in $N(A)$.
+  We say that $N(A)$ is \emph{trivial} in this case.  
+  (hint: use the definition of from \ref{sec:othermatvecdef} and the definition of linear independence)
+\end{Ex}
+\begin{EasyEx}
+  Say how you would calculate $N(A)$.  (hint: we've already done this)
+  If you'd like, pick some matrices from the text and calculate their null spaces.  
+  Write the solution in parametric form.  
+\end{EasyEx}
+
+\subsection{The Null Space Parametrizes Solutions}
+
+The null space measure the failure of our ability to expect the product of nonzero things to be nonzero, but it also does something else.  
+This is one of the most important themes in linear algebra, so make sure you fully understand the next few exercises.  
+\begin{ImpEx}
+  \label{sec:nullparam}
+  Let $\vec{x}_1$ and $\vec{x_2}$ be two solutions to $A\vec{x}=\vec{b}$.
+  Show that 
+  \[\vec{x}_1 - \vec{x}_2 \in N(A)\]
+  (hint: use \ref{sec:matvecprops})
+  Now show, similarly, that if $\vec{y}\in N(A)$ and $\vec{x}_1$ is a solution to $A\vec{x}=\vec{b}$, then 
+  \[A(\vec{x}_1+\vec{y})=\vec{b}\]
+  In other words, if you have some solution and you add a vector in the null space, you get another solution.  
+\end{ImpEx}
+To hammer home the meaning of this exercise, we introduce the following slogan: 
+\[\mbox{The null space parametrizes the solutions to a system of equations}\]
+\begin{ImpEx}
+  Explain what that slogan means.  
+  Make connections between \ref{sec:nullparam} and \ref{sec:allparam}: does the null space somehow ``appear'' in the parametric form of a solution? 
+  Interpret this geometrically as the solution set of an arbitrary set of linear equations, if nonempty, is just a translation of the null space.  
+\end{ImpEx}
+ 
+\exersisesh
+
+\section{Column Space}
+
+\begin{Def}[Column Space]
+  The column space $C(A)$ of an $m\times n$ matrix $A$ is the span of the columns in $A$.
+\end{Def}
+\begin{Remark}
+  Just as the null space was naturally a subset of $\R^n$, the column space is naturally a subset of $\R^m$.  
+\end{Remark}
+\begin{EasyEx}
+  Show that $\vec{b}\in C(A)$ if and only if the system $A\vec{x}=\vec{b}$ has at least one solution.
+\end{EasyEx}
+\begin{Remark}
+  Column space is a horrible name!
+  It should be called the ``range'' or the ``image''!
+  We could just as easily have define the row space to be the span of the rows in $\R^n$, or anything else equally as stupid.
+  We don't care about the column space because we're being cute, we care about the column space because they tell us which equations are solvable, or equivalently what vectors are possible results of a matrix vector product.  
+\end{Remark}
+\begin{Ex}
+  WARNING: applying row reduction to a matrix can \emph{change} the column space!
+  Can you find an example?  
+\end{Ex}
+\begin{Remark}
+  ``Calculating'' the column space is a particularly easy thing to do, because it is linearly just the span of the columns.
+  However, the span of columns might not be the easiest way to say what the column space in, in the same sense that $\frac{2}{4}$ is not the easiest way to write $\frac{1}{2}$.  If this is not clear, then thinking about the column space of
+  \[\left(\begin{array}{cc} 1 & 2 \\ 2 & 4\end{array}\right)\]
+\end{Remark}
+
+\exersisesi
+
+\section{Subspaces}
+
+One might be tempted to say that $\R^2$ is a subset of $\R^3$, by identifying the vector $(x,y)$ with $(x,y,0)$.  
+But, once done, it becomes obvious you made an arbitrary choice.  
+Why not identify $(x,y)$ with $(0,x,y)$, or $(x,0,y)$, or even $(y,0,x)$.  
+In fact, if we really want to consider $\R^2$ as a ``subspace'' (whatever that is) of $\R^3$, we could just pick two random linearly independent vectors, say $(1,2,3)$ and $(4,5,6)$, and use the identification
+\[\vect{x\\y} \mapsto x\vect{1\\2\\3} + y\vect{4\\5\\6}\]
+Parametrize a plane with two variables is kind of like realizing a (perhaps stretched or rotated) copy of $\R^2$ in $\R^3$!
+The point is, there are a lot of ways to see $\R^2$ in $\R^3$.
+
+So, if we want to recognize $\R^2$ as a ``subspace'' (whatever that is) of $\R^3$ (or $\R^m$ as a ``subspace'' or $\R^n$ with $m<n$), we are going to have to actually have an idea.
+So we ask, ``what structure does $\R^m$ have that we expect it still to have when you stuff it inside $\R^n$?''
+Well, you should be able to add vectors together.
+Think about $(x,y)\mapsto (x,y,0)$.  For now, we'll call these vectors ``our copy of $\R^2$ in $\R^3$'' (this terminology is temporary.  
+If you had two vectors, $(x_1,y_1,0)$ and $(x_2,y_2,0)$, and you added them together, the sum would still have zero in the last coordinate; its still in our copy of $\R^2$.  
+Likewise, multiplying by a scalar $c$ gives $c(x,y,0) = (cx,cy,0)$, which remains in our copy of $\R^2$.  
+The key idea is that these properties are enough to recognize when a subset of $\R^n$ is acting like a ``copy'' of $\R^m$ for some $m$, and we call it a subspace.
+\begin{Def}[Subspace]
+  \label{sec:defsubspace}
+  A subset of $S$ $\R^n$ is called a subspace if
+  \begin{enumerate}
+  \item (Zero) The zero vector is in $S$.  
+  \item (Closed Under Sums) For any two vectors $\vec{x},\vec{y}\in S$, $\vec{x}+\vec{y}\in S$ (sums of things in $S$ stay in $S$)
+  \item (Closed Under Scalar Multiplication) For any vector $\vec{x}\in S$ and any scalar $c\in \R$, $c\vec{x}\in S$ (multiplying things in $S$ by scalars leaves them in $S$)
+  \end{enumerate}
+  In other words, if $S$ is a subspace and you do vector space operations with things in $S$, the result will still be in $S$.
+\end{Def}
+\begin{UnimportantRemark}
+  We require $\vec{0}$ to be in a subspace for no reason other than we don't want the empty set to be a subspace (because $\R^0$ has one vector, not zero vectors).
+  If $S\subset \R^n$ is nonempty, then there is some vector $\vec{x}\in S$, so if $S$ is closed under scalar multiplication, $0\vec{x}=\vec{0}\in S$, so the first condition is automatic most of the time.  
+\end{UnimportantRemark}
+\begin{Remark}
+  How do we show something is a subspace?
+  There are two main ways to do it.  
+  The first is to verify the axioms of   \ref{sec:defsubspace} directly.  The second is to show that $S$ can be written either as the null space of some matrix, or as the span of some vectors (of course, this is cheating until after \ref{sec:nullspaceissubspace} and \ref{sec:spanissubspace}).  
+  
+  Lets outline how to show a subset $S\subset \R^n$ is a subspace directly from the axioms.  
+  Given some description of $S$, start by showing that zero satisfies that description (usually just a simple observation).
+  Then say ``suppose $\vec{x}$ and $\vec{y}$ are in $S$''.  
+  This probably means, depending on the way $S$ is described, that $\vec{x}$ and $\vec{y}$ satisfy a certain property/equation, or can be written in a certain way.  
+  Restate that property, it will almost surely be helpful.
+  Then say why the vector $\vec{x}+\vec{y}$ \emph{also} satisfies that property/equation or can be written in that way; this will usually be some very simple observation.  
+  Finally, repeat these steps for $c\vec{x}$, for arbitrary $c\in \R$.  
+
+  Students sometimes find this sort of ``higher order'' reasoning slightly difficult, as it is usually the first time they have seen it, but fear not.
+  After a few practice exercises you'll be a pro, which is good, because you're going to have to do something like it on the exam.  
+\end{Remark}
+
+\begin{Example}
+  \label{sec:nullspaceissubspace}
+  We will show (rather verbosely) directly from the axioms, that for any $m\times n$ matrix $A$, $N(A)$ is a subspace.
+  Make sure you follow along fully!
+  Recall that a vector $\vec{x}$ is in $N(A)$ when $A\vec{x}=\vec{x}$.
+  We first observe that, by \ref{sec:matvecprops}
+  \[A\vec{0}=\vec{0}\]
+  and thus $\vec{0}\in N(a)$.
+  Next suppose $\vec{x}$ and $\vec{y}\in N(A)$.  This means 
+  \[A\vec{x}=A\vec{y}=\vec{0}\]
+  But, again by \ref{sec:matvecprops},
+  \[A(\vec{x}+\vec{y})=A\vec{x} + A\vec{y}= \vec{0} + \vec{0} = \vec{0}\]
+  Thus $\vec{x} + \vec{y} \in N(A)$.  
+  Finally, let $c$ be any scalar.
+  Then, again by \ref{sec:matvecprops}
+  \[A(c\vec{x})=cA\vec{x}= c\vec{0} = \vec{0}\]
+  so $c\vec{x}\in N(A)$.  Thus $N(A)$ is a subspace.
+\end{Example}
+
+\begin{Ex}
+  \label{sec:spanissubspace}
+  Let $\vec{x_1},\cdots,\vec{x_k}\in \R^n$.
+  Show from the axioms that $\spanv{\vec{x_1},\cdots,\vec{x_k}}\subset \R^n$ is a subspace.
+  Conclude that for any $m\times n$ matrix $A$, $C(A)\subset \R^m$ is a subspace.  
+\end{Ex}
+
+\begin{EasyEx}
+  Show that $\R^n$ itself is a subspace by
+  \begin{enumerate}[a)]
+  \item Showing that the axioms \ref{sec:defsubspace} hold.
+  \item Showing that $\R^n$ is the null space of a particular matrix.  
+  \item Showing that $\R^n$ can be written as the span of some vectors
+  \end{enumerate}
+\end{EasyEx}
+
+\begin{EasyEx}
+  Show that the set $\{\vec{0}\}$ is a subspace by
+  \begin{enumerate}[a)]
+  \item Showing that the axioms \ref{sec:defsubspace} hold (there is only one vector in your space, so this amounts to checking things like $\vec{0}+\vec{0}=\vec{0}$).  
+  \item Showing that $\R^n$ is the null space of a particular matrix.  
+  \end{enumerate}
+  We call this the trivial subspace.  
+\end{EasyEx}
+
+\begin{Ex}
+  Let $S$ be the set of vectors in $\R^n$ satisfying the equation $A\vec{x}=\vec{x}$.
+  Show that $S$ is a subspace by
+  \begin{enumerate}[a)]
+  \item Showing that the axioms \ref{sec:defsubspace} hold.
+  \item Showing that $S$ is the null space of a particular matrix. (hint: subtract $\vec{x}$ from both sides and recall that $\vec{x} = I\vec{x}$, where $I$ is defined in \ref{sec:iddef})
+  \end{enumerate}
+\end{Ex}
+
+\begin{Ex}
+  Let $S$ be the set of vectors orthogonal to a given vector $\vec{v}$.
+  Show $S$ is a subspace by
+  \begin{enumerate}[a)]
+  \item Showing that the axioms \ref{sec:defsubspace} hold.
+  \item Showing that $S$ is the null space of a particular matrix.  
+  \end{enumerate}
+\end{Ex}
+
+\begin{Ex}
+  Let $V$ and $W$ be subspaces or $\R^n$.  Show from the axioms that $V\cap W$ (that is, the set of vectors in both $V$ and $W$) is a subspace.
+  Now let $V=N(A)$ where $A$ is an $m_1\times n$ matrix and $W=N(B)$ where $B$ is an $m_2\times n$ matrix.
+  Find a matrix $C$ (of course using $A$ and $B$) such that $V\cap W=N(C)$.  (hint: there is an $(m_1+m_2)\times n$ matrix which does the trick)
+\end{Ex}
+
+\begin{UnimportantRemark}
+  There are things which are not subsets of $\R^n$ which are still kind of like subspaces.
+  For instance, consider the set of all polynomials, denoted $\R[x]$.
+  Recall that a polynomial is a sum 
+  \[f(x) = a_0 + a_1x + a_2x^2 + ... + a_nx^n\]
+  Of course we can add two polynomials and we'll get another polynomial.
+  We can also multiply a real number by a polynomial and get another polynomial.
+  Finally, the constant polynomial $f(x)=0$ behaves like zero, so for all intense and purposes $\R[x]$ satisfies \ref{sec:defsubspace}, despite not being inside of any $\R^n$.
+  Without being too specific, we call such a thing a general Vector Space.  
+\end{UnimportantRemark}
+
+
+\exersisesj
+
+\section{Basis For a Subspace}
+
+By \ref{sec:spanissubspace}, the span of some vectors is a subspace of $\R^n$.
+However, we know that if the spanning set $\vec{v}_1,\cdots,\vec{v}_k$ is linearly dependent, we can throw away one of the vectors without making the span smaller.
+If we wished, we could keep throwing away vectors until the set becomes linearly independent, at which point we could evict no more vectors without changing the subspace they spanned.  
+This leads to the notion of a \emph{basis} for a subspace.
+
+\begin{Def}[Basis]
+  Let $S\subset \R^n$ be a subspace.
+  Some vectors $\vec{v}_1,\cdots,\vec{v}_k\in \R^n$ form a \emph{basis} for $S$ if
+  \begin{enumerate}
+  \item $\spanv{\vec{v}_1,\cdots,\vec{v}_k} = S$.
+  \item $\vec{v}_1,\cdots,\vec{v}_k$ are linearly independent.
+  \end{enumerate}
+\end{Def}
+
+The first condition says that the basis should be big enough to span $S$, the second condition says it should be no bigger.  
+If you are working with some subspace, having an explicit basis can make your life much easier.
+Often times your subspace will originally be described as those vectors which satisfy some equation or property.
+If you can describe that subspace with a basis $\vec{v}_1,\cdots,\vec{v}_k$, you can say ``every vector in my subspace can be written $c_1\vec{v}_1+\cdots+c_k\vec{v}_k$.
+Better yet, there is exactly one way of writing a given vector as a linear combination of the basis vectors.
+\begin{ImpEx}
+  Let $S$ be a subspace with basis $\vec{v}_1,\cdots,\vec{v}_n$.  Show that every vector $\vec{x}\in S$ can be written as a linear combination of the $\vec{v_i}$ in only one way.  (hint: if there were two different ways of doing so, say $\vec{x} = c_1\vec{v}_1+\cdots+c_k\vec{v}_k = d_1\vec{v}_1+\cdots+d_k\vec{v}_k$, then what happens if we subtract?)
+\end{ImpEx}
+\begin{EasyEx}
+  \label{sec:standardbasis}
+  Let $\vec{e}_i\in \R^n$ be the vectors with zeros in for each coordinate except coordinate $i$.
+  Show the $\vec{e}_i$ form a basis for $\R^n$.  
+\end{EasyEx}
+\begin{Warning}
+  There can be more than one basis for a given subspace.
+  For instance any two nonzero vectors in $\R^2$ that are not multiples of each other (that is, not in the same line), form a basis for $\R^2$.  
+\end{Warning}
+\begin{UnimportantRemark}
+  We do not speak of bases of $\{\vec{0}\}$, but if you'd like, define the empty set to be a basis for $\{\vec{0}\}$.
+  Its true that this doesn't quite make sense (what is the span of the empty set?), but at least the empty set is linearly independent!
+\end{UnimportantRemark}
+\begin{Ex}
+  Show that writing the null space of a matrix in parametric form actually yields, with a tiny bit of work, a basis for the null space (at least if it is nontrivial).  
+\end{Ex}
+Thus we can aways find a basis for the null space, and we already know how.  
+
+
+We already kind of know a (crappy) way of finding a basis for the column space $C(A)$ of a matrix $A$:
+start with all the columns and remove them one by one until the set is linearly independent.  
+However, we can do better, and in fact, a basis can be easily found if you know the rref of $A$.
+The idea is this.
+We wish to pick a subset of the columns of $A$ to use as our basis vectors.  
+Lets say $A$ is $m\times n$ and there is some subset of $k$ columns which would form the basis.
+We could form an $m\times k$ matrix $A'$ by just removing the other columns.
+Since these $k$ columns are a basis for $C(A)$, they are linearly independent, so $N(A')$ is trivial (recall that a nonzero element of the null space is a linear dependence relationship of the columns), meaning that if you were to rref $A'$ you would find only pivot columns.
+But, since each of the row reduction operations make changes only depending on one column at a time, doing some row operations and then removing columns is the same as removing columns and then doing some row operations.  
+Thus the columns of $A$ corresponding to the pivots of rref($A$) are linearly independent.  
+Moreover, if you add in any other column, it would be free after rrefing it, so meaning that those columns would be linearly dependent.
+Thus we get the following theorem:
+
+\begin{Theorem}[Basis for Column Space]
+  Let $A$ be an $m\times n$ matrix.  The columns of $A$ corresponding to the pivots of rref($A$) form a basis for $C(A)$.  
+\end{Theorem}
+\begin{Warning}
+  This is \emph{very} different from saying the pivots of rref($A$) form a basis for $C(A)$.  
+  You need to look at the original matrix!
+\end{Warning}
+
+\begin{Ex}
+  \label{sec:spaninsubspace}
+  Let $S$ be a subspace.  Show that if $\vec{v}_1,\cdots,\vec{c_k}\in S$, then $\spanv{\vec{v}_1,\cdots,\vec{c_k}}\subseteq S$, or equivalently, that if for any real numbers $c_1,\cdots,c_k$, 
+  \[c_1\vec{v}_1 + \cdots + c_k\vec{v}_k\in S\]
+  (hint: subspaces are closed under all the operations in the expression above)
+\end{Ex}
+
+The following method is a last-ditch effort for finding a basis for a subspace, if you cannot write your subspace as a null space.  
+\begin{TrickyEx}
+  Find a method for finding a basis for \emph{any} (nontrivial) subspace.
+  Start with the empty set, and then pick a vector which is in your subspace but not in the span of the previously chosen vectors.  
+  Use \ref{sec:spaninsubspace} to show that you have not overshot your target.
+  Say why this process must end, and why when it ends you have found a basis for your subspace.  
+\end{TrickyEx}
+Using this process, we have proven the following:
+\begin{Theorem}
+  \label{sec:allspacesgotbases}
+  Every subspace has a basis.
+\end{Theorem}
+
+\exersisesk
+
+\section{Dimension of a Subspace}
+
+Intuitively, a line is ``1-dimensional'', a plane is ``2-dimensional'' and space is ``3-dimensional'', but we'd like to make this precise.
+The observation is this.  
+A line through $\vec{0}$ has a basis with only one vector in it.  A plane through $\vec{0}$ has a basis with two vectors, etc.
+This leads us to make the following definition.
+\begin{Def}[Dimension of a Subspace]
+  Let $S$ be a subspace.  
+  Then by \ref{sec:allspacesgotbases}, there is a basis for $S$, say $\vec{v}_1,\cdots,\vec{v}_k$.
+  We say that the \emph{dimension} of $S$, $\dim(S)$, is the number of vectors in that basis.
+\end{Def}
+
+But wait a minute!
+A subspace can have different bases.
+How do we know that this makes sense?
+How do we know the number of vectors in any basis for the same subspace is the same?
+\begin{TrickyEx}
+  Show that if a subspace $S$ has a basis of $k$ vectors, then any set of $k+1$ vectors in $S$ are linearly dependent.
+  Conclude that any two bases of the same space have the same number of vectors, so the concept of dimension makes sense.  
+  (hint: pick a set of $k+1$ vectors.  Each can be written as a linear combination of the original basis.  Can you set up a $k\times (k+1)$ matrix whose null space contains linear dependence relationships among the $k+1$ vectors.
+  Does $k\times (k+1)$ matrix always have a free column?)
+\end{TrickyEx}
+
+\begin{UnimportantRemark}
+  The dimension of $\{\vec{0}\}$, is defined to be zero.
+\end{UnimportantRemark}
+
+Lets calculate some dimensions.
+\begin{EasyEx}
+  Show that the dimension of $\R^n$ is $n$.
+\end{EasyEx}
+
+The next exercise will give a remarkable relationship between the null space and column space of a matrix.
+
+\begin{ImpEx}[Rank-Nullity Theorem]
+  Let $A$ be an $m\times n$ matrix.  
+  Show that the dimension of $N(A)$ is the number of pivot vectors.
+  Show that the dimension of $C(A)$ is $n$ minus the number of pivot vectors.
+  Conclude
+  \[\dim(C(A)) + \dim(N(A)) = n\]
+  Explain how this means ``more linear relationships means smaller span''
+\end{ImpEx}
+
+\begin{Def}[Rank and Nullity]
+  We call the dimension of the column space the rank of a matrix.
+  We call the dimension of the null space the nullity of a matrix.
+\end{Def}
+
+\begin{Remark}
+  We can interpret the rank-nullity theorem geometrically.
+  Recall that the solutions to a set of equations $A\vec{x}=\vec{b}$ are, geometrically, either the empty set or just $N(A)$ slided over in some direction.  
+  For each possible place we could translate the null space, there is a unique corresponding vector in the column space.  
+  Thus the rank nullity theorem is saying that, if the null space is $k$ dimensional, there are $n-k$ dimensions of translation.
+  Try to think through this remark for the matrices
+  \[\left(\begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 0\end{array}\right)\]
+  and
+  \[\left(\begin{array}{ccc} 1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{array}\right)\]
+  In the first case, the null space is the $z$-axis and the column space is the $xy$-plane.
+  Notice that when translating the null space by some vector $\vec{v} = \vect{x\\y\\z}$, only the $x$ and $y$ coordinates matter, and you just get the line parallel to the $z$-axis through $\vec{v}$ (which meets the $xy$-plane at $\vect{x\\y\\0}$, which does not depend on $z$).  Said another way, there are only ``2 dimensions of translation'' for the $z$-axis (2 dimensions, of course, is the rank).
+  For the second matrix, the null space is the $yz$-plane, and we find there is only 1 ``dimension of translation''.  
+  Keep these pictures in mind!
+  The general situation is somehow like this, except multiplying by the matrix can stretch or twist space to make things slightly more obscure.
+  By the rank-nullity theorem, no matter how much stretching and twisting happens, the situation is fundamentally the same, if slightly harder to visualize directly.  
+\end{Remark}
+
+The notion of subspaces and dimension simplifies things in an amazing way!
+Think about it.
+A subspace typically has infinitely many vectors in it, but the bases of a subspace only has a handful.
+The shape of a set of vectors originally sounds like it could be a confusing, hard to grapple with issue, but if the shape forms a subspace you know you are dealing with a line or a plane or a higher dimensional generalization.  
+You can use dimension to compare the size of two subspaces, even though both are hugely infinite.  
+You see automatically that you can't fit a ``bigger'' subspace into a ``smaller'' one (where by ``bigger'' I mean higher dimensional), since it won't fit.  
+The rank-nullity theorem tells us precisely what we mean by ``more relationships means smaller span''.
+
+\exersisesl

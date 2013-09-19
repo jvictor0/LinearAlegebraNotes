@@ -1,3 +1,7 @@
+\documentclass[Main.tex]{subfiles} 
+\begin{document}
+\part{Vectors, Matrices and Systems of Equations}
+\newpage
 \section{Vectors in $\R^n$}
 
 \subsection{Motivation}
@@ -139,6 +143,7 @@ Let us begin with the definition.
 
 This is a rather abstract definition, so lets unpack it a bit.
 \begin{EasyEx}
+  \label{sec:spanexp}
   Let $\vec{x}\ne \vec{0}$ be any vector in $\R^n$.  Describe
   \begin{enumerate}[a)]
   \item $\spanv{\vec{x}}$
@@ -151,6 +156,8 @@ This is a rather abstract definition, so lets unpack it a bit.
 \begin{EasyEx}
   Show that for \emph{any} $\vec{x_1},\cdots,\vec{x}_k$, $\vec{0}\in\spanv{\vec{x_1},\cdots,\vec{x_k}}$
 \end{EasyEx}
+
+
 
 \section{Linear Independence}
 
@@ -181,10 +188,19 @@ This is a rather abstract definition, so lets unpack it a bit.
   (hint: suppose $c_1\vec{v_1}+\cdots+c_k\vec{v_k} = \vec{0}$ and $c_1\ne 0$, so you can divide by it.  Now ``solve for'' $\vec{v_1}$)
 \end{ImpEx}
 
+\exersisesc
 
 \section{Dot and Cross Products}
 
-To be written
+\subsection{Dot Products}
+
+\subsection{Cross Products}
+
+\begin{Ex}
+  \label{sec:crossprodisarea}
+\end{Ex}
+
+\exersisesd
 
 \section{Systems of Linear Equations}
 
@@ -197,9 +213,9 @@ Studying linear equations--their anatomy and solutions--will be the topic of the
 \subsection{The Problem}
 
 A linear equation is an equation of the form
-\[m_1 x_1 + \cdots + m_n x_n + b = 0\]
+\[m_1 x_1 + \cdots + m_n x_n - b = 0\]
 where the $m_i$ and $b$ are fixed numbers and the $x_i$ are variables.  If $n=1$, this is just very familiar; 
-\[mx +b = 0\]
+\[mx -b = 0\]
 When $n=2$, these equation are 
 \[ax+by=c\]
 and they implicitly define a line (I am playing fast and loose with the variable names here.  If $n$ is small, you can, if you so please, call $x_1$ by $x$ and $x_2$ by $y$).
@@ -237,7 +253,8 @@ If we had two vectors, $\vec{m}_1$ and $\vec{m}_2$, we could consider the set of
   \end{enumerate}
 \end{Ex}
 
-\begin{Def}
+\begin{Def}[System of Linear Equations]
+  \label{sec:systemdef}
   A system of linear $m$ linear equations in $n$ variables is a list of equations
   \[\begin{array}{ccccccccc}
     a_{1,1}x_1 & + & \cdots & + & a_{1,n}x_n & - & b_1 & = 0\\
@@ -321,7 +338,7 @@ replace one of them with
 
 \begin{Ex}
   \label{sec:gaussElimRules}
-  Verify that the follwoing three operation do not change the solution set.  
+  Verify that the following three operation do not change the solution set.  
   \begin{enumerate}[a)]
   \item Swapping two equations
   \item Multiplying an equation by a non-zero scalar
@@ -341,6 +358,8 @@ Thus, if you want to find a solution to a system of equations, you know you won'
 
 
 \subsection{Examples of Systems of Linear Equations in Nature}
+
+\exersisese
 
 \section{Matrices}
 
@@ -395,7 +414,7 @@ This leads to the concept of an ``augmented matrix'', which is a purely syntacti
 
 \begin{Def}[Augmented Matrix]
   We will often draw a vertical dashed line separating the $b_i$'s column from the rest of the matrix, just to visually remind elf's what the matrix represents.  
-  We call such a \emph{matrix augmented}.  
+  We call such a \emph{matrix augmented}, and the column to the right of the line the augmented column.  
 \end{Def}
 
 I find Gaussian Elimination is easier to think about with matrices, since the operations are just row-wise additions, multiplications and swaps.  
@@ -420,7 +439,7 @@ That is a scary sounding name (I have no idea with echelon means), but it just m
   Gaussian Elimination is the process of using cleverly chosen row operations until a matrix is in reduced row echelon form.  
 \end{Def}
 
-Why is reduced row echelon form so nice?  
+\noindent Why is reduced row echelon form so nice?  
 
 \begin{Example}
   \label{sec:gaussexamp}
@@ -470,7 +489,7 @@ Why is reduced row echelon form so nice?
 
 \begin{ImpEx}
   \label{sec:gaussexamp2}
-  Go through the logic of \ref{sec:guassexamp} for the following rref'd matrix, and then do \ref{sec:guassexampex} for it.  
+  Go through the logic of \ref{sec:gaussexamp} for the following rref'd matrix, and then do \ref{sec:guassexampex} for it.  
   \[\left(\begin{array}{ccccc}
       1 & 0 & -3 & -1 & 2\\
       0 & 1 & 1  &  4 & \frac{1}{2}\\
@@ -480,7 +499,7 @@ Why is reduced row echelon form so nice?
 \end{ImpEx}
 
 \begin{Def}[Parametric Form]
-  We call a solution to a system of equations in parametric form if it is written a constant vector plus a sum of variables times constant vectors, as in \ref{sec:gaussexamp} and \ref{sec:gaussexamp2}
+  We call a solution to a system of equations in parametric form if it is written a constant vector plus a sum of variables times constant vectors, as in \ref{sec:gaussexamp} and \ref{sec:gaussexamp2}.  
 \end{Def}
 
 \begin{Example}
@@ -501,17 +520,167 @@ Why is reduced row echelon form so nice?
 \end{Example}
 
 \begin{Ex}
-  Show that a system of linear equations is inconsistent if and only if the last column is a pivot column in the rref form.  
-  (hint: show the method of parametrization from \ref{sec:gaussexamp} and \ref{sec:gaussexamp2} works whenever the last column is not a pivot)
+  \label{sec:allparam}
+  Show that a system of linear equations is inconsistent if and only if the augmented column of the corresponding matrix is a pivot column in the rref form.  
+  Additionally, show that if there is a solution (that is, if the system is not inconsistent), we can write it in parametric form.  
+  (hint: show the method of parametrization from \ref{sec:gaussexamp} and \ref{sec:gaussexamp2} works whenever the augmented column is not a pivot)
 \end{Ex}
 
 \begin{ExProg}[(optional)]
   Try writing a computer program (in the language of your choice) to put a matrix in rref. 
 \end{ExProg}
+We end with an easy definition:
+\begin{Def}{Matrix Addition}
+  We add two matrices of the same size by adding corresponding entries, that is
+  \[\left(\begin{array}{cccc}
+      a_{1,1} &  \cdots & a_{1,n}\\
+      \vdots     & \ddots  & \vdots\\
+      a_{m,1} & \cdots  & a_{m,n}
+    \end{array}\right) + 
+  \left(\begin{array}{cccc}
+      b_{1,1} &  \cdots & b_{1,n}\\
+      \vdots     & \ddots  & \vdots\\
+      b_{m,1} & \cdots  & b_{m,n}
+    \end{array}\right) =
+  \left(\begin{array}{cccc}
+      a_{1,1} + b_{1,1} &  \cdots & a_{1,n} + b_{1,n}\\
+      \vdots     & \ddots  & \vdots\\
+      a_{m,1}+a_{m,1} & \cdots  & a_{m,n}+a_{m,n}
+    \end{array}\right)\]
+  We define the zero matrix as the matrix with all zero entries.  
+\end{Def}
 
 
+\exersisesf
 
 \section{Matrix Vector Products}
 
-I admit I lied slightly in the previous chapter.
-A matrix is just a 2-d array of numbers, 
+Recall that a homogeneous linear equation is a one where the augmented column is all zeros.  
+\begin{EasyEx}
+  Show that if a system of linear equations is homogeneous, then the rref'd form of the matrix for that system is homogeneous.  
+  (hint: what do each of the three operations of Gaussian Elimination do to the augmented column of such a matrix?)
+\end{EasyEx}
+Since throughout our analysis the last column stays zero, we may neglect it and represent our system of equations by a non-augmented matrix.  
+A homogeneous system of equation looks like this:
+\[\begin{array}{ccccccc}
+  a_{1,1}x_1 & + & \cdots & + & a_{1,n}x_n  & = 0\\
+  \vdots     &   & \ddots &   & \vdots     \\
+  a_{m,1}x_1 & + & \cdots & + & a_{m,n}x_n & = 0
+\end{array}\]
+The corresponding matrix, which we will call $A$, is
+\[A=\left(\begin{array}{cccc}
+  a_{1,1} &  \cdots & a_{1,n}\\
+  \vdots     & \ddots  & \vdots\\
+  a_{m,1} & \cdots  & a_{m,n}
+\end{array}\right)\]
+Define $\vec{a_i}$ to be the vector with $j$th coordinate $a_{i,j}$, that is, $\vec{a_i}$ is the $i$th row of $A$.
+Then recall, as in \ref{sec:dot-is-lineareq}, that our system of equations can also be written
+\[\begin{array}{ccc}
+  \vec{a_1}\cdot\vec{x} & = & 0\\
+  \hdots &&\hdots\\
+  \vec{a_n}\cdot\vec{x} & = & 0
+\end{array}{ccc}\]
+Following the philosophy of atomizing things, it would be nice if we could write this system of many equations as some kind of single equation involving vectors.
+To do this though, we need to make a definitions.
+\begin{Def}[Matrix Vector Product]
+  Let $A$ be an $m\times n$ matrix with rows $\vec{a_i}\in\R^m$.
+  If $\vec{x}\in\R^n$, then define the matrix-vector product
+  \[A\vec{x} = \left(\begin{array}{cccc}
+  a_{1,1} &  \cdots & a_{1,n}\\
+  \vdots     & \ddots  & \vdots\\
+  a_{m,1} & \cdots  & a_{m,n}
+\end{array}\right)\vect{x_1\\ \hdots\\x_n} = 
+\vect{\vec{a_1}\cdot\vec{x}\\
+  \hdots\\
+  \vec{a_n}\cdot\vec{x}}\]
+\end{Def}
+\begin{Remark}
+  With each new operation it is important to remember the type.
+  In this case: 
+  \[\mbox{matrix times vector = vector}\]
+  Or even better
+  \[\mbox{$m\times n$-matrix times $n$-vector = $m$-vector}\]
+\end{Remark}
+\begin{PedRemark}
+  Students often find this definition unmotivated, as if it came out of left field.
+  It is extremely important that you understand why the product is defined the way it is, and why we want a matrix vector product at all!
+\end{PedRemark}
+\begin{EasyEx}
+  \label{matvecprodiseq}
+  Let $A$ be the non-augmented matrix for a system of $m$ homogeneous linear equations in $n$ variables.  
+  Show that the system can be written
+  \[A\vec{x}=\vec{0}\]
+\end{EasyEx}
+\begin{EasyEx}
+  Given a system of equations:
+  \[\begin{array}{ccccccccc}
+    a_{1,1}x_1 & + & \cdots & + & a_{1,n}x_n & - & b_1  & = 0\\
+    \vdots     &   & \ddots &   & \vdots     \\
+    a_{m,1}x_1 & + & \cdots & + & a_{m,n}x_n &  - & b_m= 0
+  \end{array}\]
+  Let $A$ be the non-augmented matrix associated with this system, that is, 
+  \[A=\left(\begin{array}{cccc}
+      a_{1,1} &  \cdots & a_{1,n}\\
+      \vdots     & \ddots  & \vdots\\
+      a_{m,1} & \cdots  & a_{m,n}
+    \end{array}\right)\]
+  and let
+  \[\vec{b} = \vect{b_1\\\hdots\\b_m}\]
+  Show that the original system of linear equations is equivalent to the matrix equation
+  \[A\vec{x}=\vec{b}\]
+  This generalizes \ref{matvecprodiseq}.
+\end{EasyEx}
+
+\begin{Ex}
+  \label{sec:othermatvecdef}
+  Show that the following definition of matrix-vector multiplication is equivalent to the original.
+  If $A$ is an $m\times n$ matrix  and $\vec{x}\in\R^n$, 
+  \[\left(\begin{array}{cccc}
+      a_{1,1} &  \cdots & a_{1,n}\\
+      \vdots     & \ddots  & \vdots\\
+      a_{m,1} & \cdots  & a_{m,n}
+    \end{array}\right)\vect{x_1\\\vdots\\x_n} =
+  x_1\vect{a_{1,1}\\\vdots\\a_{m,1}} + \cdots + x_n\vect{a_{1,n}\\\vdots\\a_{m,n}}\]
+  In particular, $A\vec{x}$ is a linear combination of the columns with coefficients the coordinates of $\vec{x}$.  
+\end{Ex}
+
+
+\begin{Def}[Identity Matrix]
+  \label{sec:iddef}
+  Fix some $n$.  
+  Let $I$ (sometimes called $I_n$) be an $n\times n$ matrix with 1 on the diagonal entries and 0 elsewhere, that is
+  \[I=\left(\begin{array}{cccc}
+      1 & 0  & \cdots & 0\\
+      0 & 1  & \cdots &  0\\
+      \vdots && \ddots  & \vdots\\
+      0 &0 & \cdots  & 1
+    \end{array}\right)\]
+  We will see that this is a very special matrix.  
+\end{Def}
+\begin{Ex}
+  \label{sec:matvecprops}
+  Verify the following properties:
+  \begin{enumerate}[a)]
+    \item $(A+B)\vec{x} = A\vec{x} + B\vec{x}$
+    \item $A(\vec{x} + \vec{y}) = A\vec{x} + A\vec{y}$
+    \item $A\vec{0} = \vec{0}$
+    \item If $Z$ is a $m\times n$ matrix of all zeroes, $Z\vec{0} = \vec{0}$ (the two zero vectors are different... where do they live?)
+    \item $I\vec{x}=\vec{x}$ (see \ref{sec:iddef})
+  \end{enumerate}
+  (hint: recall that each entry of a matrix vector product is a dot product, and that dot products obey similar looking laws)
+\end{Ex}
+\begin{Ex}
+  \label{sec:extractcol}
+  If we wish to extract a column from a matrix, there is a nice way of doing so.
+  Show that if $A$ is an $m\times n$ matrix and $\vec{e}_i$ is the $i^{th}$ standard basis vector (that is, all zeros except for a 1 in the $i^{th}$ position), then $Ae_i$ is the $i^{th}$ column of $A$.
+  Keep this in mind, it can be a handy shortcut come exam time.
+\end{Ex}
+\begin{Remark}
+  It may seem silly at first to define all this notation, but it gives us the advantage of being able to write a system of linear equations in a few short symbols.  
+  Also, the symbols $A\vec{x}=\vec{b}$ looks an awful lot like the very simple scalar equation $ax=b$.  
+  In fact, if $m=n=1$, it is exactly that.  
+  We will see in \ref{sec:lineartransforms} that ``multiplying by a matrix'' is actually a quite reasonable generalization of ``multiplying by a number'' to situations with many variables.
+\end{Remark}
+\exersisesg
+
+\end{document}

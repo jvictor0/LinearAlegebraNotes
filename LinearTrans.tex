@@ -1,0 +1,460 @@
+\part{Linear Transformations}
+\newpage
+
+\section{Linear Transformations}
+\label{sec:lineartransforms}
+
+Originally, we invented matrices to keep track of linear equations, and then allowed ourselves to consider solution sets geometrically.
+We invented matrix multiplication as a shorthand of writing a system of linear equations, but have occasionally talked about what a matrix ``does'' to a vector or to space.
+We now wish to go back on that just a little bit, and say that, in fact, a matrix is a sort of machine which takes vectors and gives back new vectors.
+
+We recall that a function (say from calculus), is a machine which takes some number and gives back a new number.
+We could say like $f(x)=x^2$ or $f(x)=\sin(x) + e^{3x+\pi}\cos^{-1}(x)$ or whatever.
+Recall that you defined the domain, codomain and range of a function as the set where the function was defined, the set where the function took values, and the set of actual values the function could take.  
+Typically the domain was all of $\R$ or $\R$ minus a few points (since one wished to avoid evaluating $f(x)=\frac{1}{x}$ at 0), or the positive numbers, or whatever.
+The codomain was typically just $\R$ and the range would be some restricted subset where you could actually hit (for instance the range of $f(x)=x^2$ is the non-negative numbers).
+The key idea is that there is no reason that a function can't take as its input a vector and return another vector.
+
+For instance, a function could take a vector and return a scalar, like
+\[f\vect{x\\y} = 2x + 3y^2 + \sin(x+y)\]
+Here the domain is all of $\R^2$, the codomain is $\R$ and the range is also all of $\R$.
+Notate this, we write
+\[f:\R^2\to \R\]
+meaning the domain is $\R^2$ and the codomain is $\R$.
+We don't write the range because sometimes it can be hard to say what the range of a function is, but the domain and codomain are of course known directly from the type.
+Note that we could graph such a function in $\R^3$ if we were so inclined, but the fact that we can graph it was not needed.  
+
+We can also have a function taking a vector and returning a vector, like
+\[f:\R^2\to \R^3\]
+\[f\vect{x\\y} =\vect{x+y\\ysin(x^8)\\e^{xy}}\]
+Now the range is really complicated, and graphing this function would require drawing in 5 dimensions, but it is a function all the same.
+
+The functions above were mostly complicated, but we can have simpler functions too, like
+\[f: \R\to \R\]
+\[f(x) = 5x\]
+Or
+\[g:\R^3\to \R^2\]
+\[g(\vec{x}) = \left(\begin{array}{ccc} 5 4 3\\ 2 1 0\end{array}\right)\vec{x}\]
+
+It is a very simple idea, but very important.
+\[\mbox{Multiplying by an $m\times n$ matrix can be thought of as a function $\R^n\to \R^m$}\]
+
+Let $A$ be an $m\times n$ matrix and 
+\[T:\R^n\to \R^m\]
+\[T(\vec{x}) = A\vec{x}\]
+(we use the capitol letter $T$ for this sort of function sometimes, but its the same as $f$)
+What properties does $T$ have?
+\begin{EasyEx}
+  Show that 
+  \begin{enumerate}[a)]
+  \item $T(\vec{x} + \vec{y}) = T(\vec{x}) + T(\vec{y})$
+  \item $T(\vec{0}) = \vec{0}$
+  \item $T(c\vec{x}) = cT(\vec{x})$
+  \end{enumerate}
+  (hint: \ref{sec:matvecprops})
+\end{EasyEx}
+These properties will be nice, because they can be verified from the description of a function without knowing there is a matrix behind it, yet imply the existence of a matrix.
+\begin{Def}[Linear Transformation]
+  Let $T:\R^n\to \R^m$ be a function.
+  We say $T$ is a linear transformation if
+  \begin{enumerate}[a)]
+  \item $T(\vec{x} + \vec{y}) = T(\vec{x}) + T(\vec{y})$
+  \item $T(\vec{0}) = \vec{0}$
+  \item $T(c\vec{x}) = cT(\vec{x})$
+  \end{enumerate}
+\end{Def}
+\begin{ImportantRemark}
+  Notice how the linear transformation properties look kind of like the subspace properties.
+  We must remember types; a subspace is a set and a linear transformation is a function.
+  However, in a strong sense that we shall not make precise, a linear transformation is the function counterpart of a subspace.
+\end{ImportantRemark}
+\begin{ImpEx}
+  \label{sec:findmatrix}
+  Given a description of a linear transformation $T:\R^n\to R^m$, we can actually come up with an $m\times n$ matrix so that $T(\vec{x}) = A\vec{x}$?
+  (hint: build the matrix column by column, using \ref{sec:extractcol}, and then say why the matrix you get at the end actually works).
+  This method for taking a description of a linear transformation and coming up with a matrix is very useful in practice!
+\end{ImpEx}
+This proves
+\begin{Theorem}
+  Every linear transformation has an underlying matrix.  
+\end{Theorem}
+
+Recall that a function is one-to-one (or an injection) if each input goes to a different output, that is, if $x\ne y$ (for $x,y$ in the domain) then $f(x)\ne f(y)$.
+A function is onto (or a surjection) if each element of the codomain has a preimage in the domain, that is, if $y$ in the codomain then there is an $x$ in the domain with $y=f(x)$.  
+A one-to-one function is like the inclusion of a smaller thing into a bigger thing, and an onto function is like the domain fills up the range.  
+Tests like to ask questions about injections and surjections which are free points for students who know whats going on and very hard for students who don't.  
+
+\begin{ImpEasyEx}
+  \label{sec:inject}
+  Let $A$ be an $m\times n$ matrix and $f\R^n\to \R^m$ be $f(\vec{x}) = A\vec{x}$.
+  Show that if $f$ is one-to-one, then $N(A)=\{0\}$.  
+  Show that if $N(A)=\{0\}$ then $f$ is one-to-one (hint: if $x\ne y$ bu $f(x)=f(y)$, then $f(x-y)=f(x)-f(y)=0$).
+  Conclude that if $m< n$, $f$ is \emph{not} one-to-one, so ``a bigger dimensional space is too big to fit inside a smaller one''.
+\end{ImpEasyEx}
+
+\begin{ImpEasyEx}
+  \label{sec:surject}
+  Let $A$ and $f$ as \ref{sec:inject}.  
+  Show that if $f$ is onto then $C(A)=\R^m$.
+  Show that if $C(A)=\R^m$ then $f$ is onto.  
+  Conclude that if $m> n$, $f$ is \emph{not} onto, so ``a smaller dimensional space is to small to fill up a bigger one''.
+\end{ImpEasyEx}
+
+\begin{ImpEasyEx}
+  \label{sec:surjandinj}
+  Use the rank nullity theorem and \ref{sec:inject} and \ref{sec:surject} to conclude that, if $A$ is an $n\times n$ matrix, then $A$ is either both one-to-one \emph{and} ontp or neither.  
+  If $m\ne n$, can an $m\times n$ matrix be both one-to-one and onto?
+\end{ImpEasyEx}
+
+\exersisesm
+
+\section{Examples of Linear Transformations}
+
+To be written
+
+\exersisesn
+
+\section{Composition and Matrix Multiplication}
+
+What sort of things can we do with functions.
+If we have two functions, $f$ and $g$, and the codomain of $g$ is the domain of $f$ (or more generally the range of $g$ is a subset of the domain of $f$), we can form the composition $f\circ g$.  
+This means ``do $g$ first, and take the output and use it as the input to $f$'', or in symbols
+\[(f\circ g)(x) = f(g(x))\]
+Note that, if you aren't paying attention, you can get it backwards, since $f$ is written before $g$ but applied after $g$.
+For that reason people sometimes pronounce the $\circ$ symbol ``after'', as in $f\circ g$ is pronounced ``$f$ after $g$''.  
+
+\begin{Ex}
+  Show that if $f:\R^m\to \R^p$ and $g:\R^n\to R^m$ are linear transformations, then so is $f\circ g$.  (hint: you don't need matrices, just use the properties).
+\end{Ex}
+
+Let $f(x) = 5x$ and $g(x)=-3x$.
+Then we have
+\[(f\circ g)(x) = f(g(x)) = f(-3x) = 5(-3x) = -15x\]
+That is, for linear functions from $\R\to \R$ (that is, $1\times 1$ matrices), function composition is just multiplication; composing two linear functions gives another linear function, whose ``matrix'' is just the product of the two original ``matrices''.  
+
+Now what happens if
+\[f:\R^m\to \R^p\]
+\[f (\vec{x}) = A\vec{x}\]
+\[g:\R^n\to \R^m\]
+\[g (\vec{x}) = B\vec{x}\]
+where $A$ and $B$ are appropriate sized matrices.  
+Then we have
+\[(f\circ g)(\vec{x}) = f(B\vec{x}) = A(B\vec{x})\]
+That is, evaluate $B\vec{x}\in \R^m$ and then apply the matrix $A$ to it.
+But wait!
+We know that $f\circ g$ is linear, so there is some $p\times n$ matrix with $C$ with $C\vec{x}=A(B\vec{x})$ for all $\vec{x}\in \R^n$.  
+This leads, quite abstractly, to the definition of matrix multiplication
+\begin{Def}[Matrix Multiplication]
+  If $A$ and $B$ are $p\times m$ and $m\times n$ matrices respectively, then define their product to be the $p\times n$ matrix of the linear transformation
+  \[T(\vec{x}) = A(B\vec{x})\]
+\end{Def}
+\begin{Remark}
+  By definition, $(AB)\vec{x} = A(B\vec{x})$, so we can drop the parentheses all together.
+\end{Remark}
+\begin{Ex}
+  We defined matrix multiplication without ever saying a formula for it!
+  This has the advantage of making matrix multiplication easier to think about (it means just do one and then the other), but the disadvantage of not knowing, given two matrices, how do I find their product.  
+  Use \ref{sec:findmatrix} to write down a formula for matrix multiplication.  
+  (If you just look it up in the textbook, you'll have to look it up every time.  Do this exercise once and I promise you'll never forget the formula).
+\end{Ex}
+\begin{EasyEx}
+  Show that matrix multiplication is associate using the definition given above.
+\end{EasyEx}
+\begin{HardEx}
+  Show that matrix multiplication is associative using the formula.  
+\end{HardEx}
+\begin{EasyEx}
+  Show that 
+  \[(A+B)C = AC + BC\]
+  and
+  \[C(A+B) = CA + CB\]
+  (hint: what does $+$ mean in the context of linear transformations?)
+\end{EasyEx}
+\begin{Remark}
+  Matrix multiplication is \emph{not} commutative.
+  It is not true that, if $A$ and $B$ are both $n\times n$ matrices, then $AB=BA$.
+  In fact, most matrices have this property, so be careful when doing matrix algebra not to flip the order!
+\end{Remark}
+
+\exersiseso
+
+\section{Inverses}
+
+Lets think about $n\times n$ matrices.
+These are nice because the domain and codomain are the same.
+This means, by \ref{sec:surjandinj}, that either $f$ is both one-to-one and onto or neither.
+This is great, if we want to find inverses.
+\begin{EasyEx}
+  Say why a function must be both one-to-one and onto for us to consider inverses.
+  Say why an $m\times n$ matrix with $m\ne n$ can never have an inverse.
+\end{EasyEx}
+\begin{Ex}
+  It turns out the inverse of a linear transformation is also a linear transformation.
+  Show this.
+  It will require considering things like
+  \[f(f^{-1}(\vec{x})+f^{-1}(\vec{y}))=f(f^{-1}(\vec{x}))+f(f^{-1}(\vec{y}))\]
+\end{Ex}
+\begin{EasyEx}
+  This means that, in particular, if $f^{-1}$ has a matrix.
+  If the matrix of $f$ is $A$ and the matrix of $f^{-1}$ is $B$, then show that
+  \[AB=BA=I\]
+  (hint: use the function composition definition).
+  We give $B$ the name $A^{-1}$, since it acts kind of like ``$1/A$'', except that that doesn't make sense.
+\end{EasyEx}
+\begin{EasyEx}
+  Let $A=(a)$ be a $1\times 1$ matrix.
+  Show that $A^{-1}=(1/a)$.
+\end{EasyEx}
+We say that a matrix is invertible if it has an inverse, which is true exactly when it is square and the null space is trivial.  
+An invertible matrix is a sort of generalization of a nonzero number.  
+\begin{Ex}[Socks on Shoes on; Shoes off Socks off]
+  \label{sec:invcontra}
+  Let $A$ and $B$ be invertible.
+  Show that 
+  \[(AB)^{-1}=B^{-1}A^{-1}\]
+  (hint: what is $ABB^{-1}A^{-1}$?)
+  We call this the ``Socks on Shoes on; Shoes off Socks off'' theorem, because in order to undo putting your socks and shoes on, you must undo each action in the \emph{opposite order}.  
+  The same logic applies to reversing directions or operations on a Rubik's Cube: to undo something, do the opposite series of operations in the opposite order.
+\end{Ex}
+  
+
+
+
+
+\subsection{Computing Inverse Matrices}
+
+We wish to compute inverse matrices.
+Let $A$ be an $n\times n$ matrix with $N(A)=\{\vec{0}\}$.  
+We will start by computing each column individually, and then show a way to do all the columns at once.
+Lets start by computing the first column.
+The first column satisfies the relationship
+\[AA^{-1}\vec{e}_1=\vec{e_1}\]
+(remember: we know $A$, but we don't know $A^{-1}$.  We want to solve for $A^{-1}$!)
+By writing parentheses on the left hand side, this is equivalent to
+\[A(A^{-1}\vec{e}_1)=\vec{e_1}\]
+Since multiplying by $\vec{e}_1$ give the first column, this equations means ``$A$ (which we know) times the first column of $A^{-1}$ (which we want to know) is $\vec{e}_1$''.
+This is just a linear equation!
+Since $A^{-1}\vec{e_1}$, is unknown, we can just call it $\vec{x}$.  We wish to solve
+\[A\vec{x}=\vec{e_1}\]
+for $\vec{x}$, and this will be the first column (notice that there is exactly one solution since $N(A)$ is trivial).  
+Of course the same logic works for each $i$, so we just need to solve
+\[A\vec{x}=\vec{e}_i\]
+for each $i$ from 1 to $n$.
+
+Of course, naively this means we have to set up $n$ augmented matrices:
+\[\left(A \right|\left.\vec{e}_i\right)\]
+and row reduce each one.
+But you'll notice that the operations you do on the left side (the $A$ side) are the same each time.
+It would be a shame to redo that work $n$ times if you don't have to.
+Luckily, we have the following:
+\begin{Ex}
+  Let $A$ be an $n\times n$ matrix with $N(A)=\{\vec{0}\}$.  
+  Show that if we start with the augmented matrix
+  \[\left(A\right|\left.I\right)\]
+  the rref form of that matrix is
+  \[\left(I\right|\left.A^{-1}\right)\]
+  That is, we can compute the inverse of $A$ by setting up the matrix above and row reducing it.
+  (hint: if you threw out all the columns on the right side of the line except for one, you'll be computing a column of $A^{-1}$, by the logic above.)
+\end{Ex}
+
+
+
+\subsection{Inverses in Practice}
+
+\begin{Example}
+  Let $B$ be any old $m\times n$ matrix and let $A$ be an $m\times m$ invertible matrix.
+  Then what is $A^{-1}B$?
+  It is just the matrix whose columns are the solutions to $A\vec{x}=\vec{b}_i$ where $\vec{b}_i$ is the $i^{th}$ column of $B$.
+  Thus we just solved $n$ systems of equations ``at the same time''.  
+\end{Example}
+
+Computing the inverse of a matrix can be a long and involved computation, but very useful.
+For instance, suppose you have an invertible $n\times n$ matrix $A$ and you know you are going to have to solve $A\vec{x}=\vec{b}$ for a whole bunch of different $\vec{b}$.
+One option is to just form the augmented matrix and row reduce each time, but this is highly tedious.
+The better option might be to compute $A^{-1}$ and then say your solution is $\vec{x}=A^{-1}\vec{b}$ for each $\vec{b}$, since matrix multiplication is easier than solving systems.
+Matrix inversion is a big hammer though, because it takes so long to compute.  
+You should only do it when you think the benefit of solving many systems fast outweighs the cost of computing the inverse.
+
+\exersisesp
+
+\section{Determinants}
+
+Determinants are a notoriously opaque topic for most first time linear algebra students, but we will see that they actually make a lot of intuitive sense.
+
+In this chapter we will investigate how the area of a shape changes under a linear transformation.  
+That is, if $R$ is a shape and $f$ is a linear transformation, then $f(R)$ is some other shape.
+If we know the area of $R$, can we say anything about the area of $f(R)$?
+
+\subsection{Motivation by area in $\R^2$}
+
+Suppose you have two vectors in $\R^2$, $\vect{a\\c}$ and $\vect{b\\d}$.
+If they are not in a line, then there is a parallelogram formed as shown
+\[MAKE A PARALLELOGRAM\]
+We can think of these vectors in $\R^3$ as $\vect{a\\c\\0}$ and $\vect{b\\d\\0}$.
+We get
+\[\vect{a\\c\\0}\times\vect{b\\d\\0} = \vect{0\\0\\ ad-cb}\]
+which means that, by \ref{sec:crossprodisarea}, the volume of the parallelogram above is $|ad-cb|$.  
+
+Now let $R$ be some square in $\R^2$, as show.
+\[MAKE A SQAURE\]
+The corners are at 
+\[\vect{x\\y},~~\vect{x+s\\y},~~\vect{x+s\\y+s},~~\vect{x\\y+s}\]
+or
+\[\vect{x\\y},~~\vect{x\\y}+s\vect{1\\0},~~\vect{x\\y}+s\vect{1\\0}+ s\vect{0\\1},~~\vect{x\\y}+s\vect{0\\1}\]
+If we have a matrix
+\[A=\left(\begin{array}{cc} a & b \\ c & d\end{array}\right)\]
+what is $AR$, that is, what happens to the square $R$ after we transform by $A$?
+Since linear transformations preserve lines (why?), we get a new quadrilateral with corners
+\[A\vect{x\\y},~~A\vect{x\\y}+s\vect{a\\c},~~A\vect{x\\y}+s\vect{a\\c} + s\vect{b\\d},~~\vect{x\\y}+s\vect{b\\d}\]
+Since obviously translation doesn't effect area, if we subtract $A\vect{x\\y}$ from each corner, we get the parallelogram discussed at the beginning, scaled by $s$.
+\[\vect{0\\0},~~s\vect{a\\c},~~s\vect{a\\c} + s\vect{b\\d},~~s\vect{b\\d}\]
+the area of which is 
+\[\mbox{Area}(AR) = |ad-cb|s^2=|ad-cb|\mbox{Area}(R)\]
+We must give that factor $ad-cb$ a name!
+\begin{Def}[$2\times2$ Determinant]
+  The determinant of a $2\times 2$ matrix 
+  \[A=\left(\begin{array}{cc} a & b \\ c & d\end{array}\right)\]
+  is $ad-cb$.  
+\end{Def}
+Thus we have shown that if you apply a linear transformation to some random square in $\R^2$, the area of the image is the area of the original square times that weird factor $ad-cb$, which we call the determinant of $A$.
+But remember from calculus that you can compute the area of shapes by dividing them into squares and taking a funny limit, we have actually shown (kind of) that if $R$ is \emph{any} shape, then
+\[\mbox{Area}(AR) = |ad-cb|\mbox{Area}(R) = \left|\mbox{det}(A)\right|\mbox{Area}(R)\]
+\begin{TrickyEx}[optional]
+  Our proof that the formula $\mbox{Area}(AR) = \left|\mbox{det}(A)\right|\mbox{Area}(R)$ works for \emph{any} shape skipped over a lot of details.  
+  Can you fill in the details using calculus or measure theory?
+\end{TrickyEx}
+
+Let us get used to working with determinants in the $2\times 2$ case.  
+
+\begin{EasyEx}
+  \label{sec:detfirst}
+  \label{sec:detI}
+  Show that $\mbox{det}(I)=1$, where $I$ is the $2\times 2$ identity matrix.
+\end{EasyEx} 
+
+\begin{Ex}
+  \label{sec:det0}
+  Let $A$ be a $2\times 2$ matrix.
+  Show that if $\mbox{det}(A)=0$, then $N(A)\ne \{0\}$.  
+  Show that if $\mbox{det}(A)\ne0$, then $N(A)=\{\vec{0}\}$.  
+  (hint: if the columns are linearly dependent and $R$ is the unit square, what is the volume of $AR$?)
+\end{Ex}
+
+\begin{ImpEx}
+  \label{sec:detprod}
+  Show that if $A$ and $B$ are $2\times 2$ matrices, then 
+  \[\mbox{det}(AB)=\mbox{det}(A)\mbox{det}(B)\]
+  (hint: what happens to the volume of a standard square after applying $B$ and then $A$?)
+\end{ImpEx}
+
+\begin{Ex}
+  Let $A$ be a $2\times 2$ invertible matrix.
+  Can you write $\mbox{det}(A^{-1})$ in terms of $\mbox{det}(A)$?
+  (hint: combine \ref{sec:detprod} and \ref{sec:detI} to get an equation involving $\mbox{det}(A)\mbox{det}(A^{-1})$, and then divide).
+  Why do I not get a contradiction if $\mbox{det}(A)=0$?
+\end{Ex}
+
+\begin{Ex}
+  \label{sec:detlast}
+  If $c$ is a scalar and $A$ a $2\times 2$ matrix,
+  can you write $\mbox{det}(cA)$ in terms of $c$ and $\mbox{det}(A)$.
+  (hint: $cA=(cI)A$)
+\end{Ex}
+
+\subsection{Determinants in General}
+
+We will now say what a determinant is for a general $n\times n$ matrix.
+\begin{Def}[Determinant]
+  The definition of the determinant can be found in your course text, because I don't feel like writing it out.
+  It is recursive: taking the determinant of a $n\times n$ matrix requires taking the determinant of many $(n-1)\times(n-1)$ matrices.
+\end{Def}
+\begin{Remark}
+  Determinants of $3\times 3$ matrices obey the same intuition as $2\times 2$ ones, except that we are tracking volume instead of area.  
+  Determinants of $n\times n$ matrices obey all the intuition that $2\times 2$ matrices do, except we might not know what ``area'' or ``volume'' means in $\R^{37}$.
+  It remains true then that the exercises \ref{sec:detfirst} to \ref{sec:detlast} still hold for larger square matrices (with some obvious modifications), and you should intuitively think through why each is true, or at least plausible. 
+  When working with determinants abstractly, always keep the $2\times 2$ case in mind and you probably won't be led astray.
+  The multiplication law, the inversion law and the fact that $\mbox{det}(A)=0$ if and only if $A$ is not invertible are the most important things to remember, as well
+  as the intuition that ``the determinant measures how volume of shapes change under linear transformations''.
+\end{Remark}
+\begin{Remark}
+  While is true that the determinant measures how any shape's area/volume changes, it is almost always easier to think about the unit hypercube, that is, the shape enclosed by vectors with only zeros and ones.
+  Obviously this is the standard square in $\R^2$ and the standard cube in $\R^3$.
+  The reason is because the $\mbox{det}(A)$ is (up to a sign) the ``volume'' of the hyper-parallelogram defined by the columns of $A$.  
+\end{Remark}
+
+The following exercises can be done from the formula, but should be checked against geometric intuition.  
+
+\begin{EasyEx}
+  \label{sec:swapdet}
+  Let $A$ be an $n\times n$ matrix.
+  Show that swapping any two columns changes the determinant by a sign.
+\end{EasyEx}
+
+\begin{Ex}
+  \label{sec:dettrans}
+  We haven't talked about matrix transposes yet in these notes, the transpose of a square matrix is what you'd get if you spun a matrix 180 degrees about the diagonal.
+  In notation, the transpose of $A$ is called $A^T$ and $(A^T)_{i,j}=A_{j,i}$.  
+  Show that 
+  \[\mbox{det}(A)=\mbox{det}(A^T)\]
+  Conclude that swapping two rows also changes the determinant by a sign.  
+\end{Ex}
+
+\subsection{Computing Determinants Quickly}[optional]
+
+The next section will help you compute determinants of matrices larger than $3\times 3$ faster.
+This might save you a bit of time on the exam, but mostly its just interesting.
+
+\begin{Ex}
+  \label{sec:uppertridet}
+  We say a matrix is upper triangular if all entries below the diagonal are zero.
+  We say a matrix is lower triangular if all entries above the diagonal are zero.
+  Show that the determinant of an upper triangular matrix is just the product of the entries on the diagonal.
+  Conclude that the same is true of a lower triangular matrix.
+\end{Ex}
+
+\begin{Ex}
+  \label{sec:gauselimdet}
+  Suppose that $A$ is a square matrix and you wish to perform the row reduction operation of adding $c$ times row $i$ to row $j$, and call the resulting matrix $A$'.
+  Show that $\mbox{det}(A')=\mbox{det}(A)$.  
+  (hint: this operation is equivalent to multiplying by a certain matrix.  what is the determinant of this matrix?(
+\end{Ex}
+
+This gives an easier way (easier than expanding all the alternating blocks) of computing the determinant!
+Using the operations of swapping rows and adding $c$ times row one row to another row, try to clear out everything below the diagonal.
+Go left to right, never undoing a cleared zero.  
+Make sure you count the number of swaps you do!  You should only need to do a swap if an entry on the diagonal that you want to divide by is zero.
+Also, make sure not to multiply rows by scalars, as that changes the determinant. 
+You don't need to go all the way to rref.
+When you have your matrix upper triangular, the determinant is just the product of the diagonal entries, plus a sign for each swap.  
+
+\begin{ExProg}
+  Write a program computing the determinant of a matrix $A$ using the algorithm above, as well as the original definition.
+  If you don't mind destroying $A$ during the computation, you can easily do this in constant memory!
+  Can you think of a way to do this in only linear memory without destroying $A$?
+  (hint for the last part: you can use the zeros below the diagonal to store just enough info to undo all the row reduction operations you did to get, teehee.  
+  You can use your linear memory to remember which rows you swapped)
+\end{ExProg}
+
+\subsection{A Very Important Tables}
+
+For matrices, we have seen that many conditions are actually the same.
+We will sum them up in the following list.
+Let $A$ be an $m\times n$ matrix and $T(\vec{x})=A\vec{x}$.  
+The columns of the following tables (square, tall and fat matrices) are equivalent: if one thing in a column is true, the whole column is true, and if one thing is false, the whole column is false.  A -- means that that corresponding property \emph{never} holds, for example a fat matrix never has linearly independent columns.  
+\[\begin{tabular}{|c|c|c|}\hline
+  $m=n$ (square)  & $m>n$ (tall) & $m<n$ (fat)\\\hline\hline 
+  Columns of $A$ linearly independent &Columns of $A$ linearly independent & --- \\ \hline
+  $N(A)=\{\vec{0}\}$ & $N(A)=\{\vec{0}\}$ & $\mbox{nullity}(A)=n-m$ \\\hline
+  $C(A)=\R^n$ &$\mbox{rank}(A) = n$ & $C(A)=\R^m$ \\ \hline
+  $T$ is one-to-one & $T$ is one-to-one & --- \\\hline
+  $T$ is onto & --- & $T$ is onto \\\hline
+  $A$ is invertible & --- & ---  \\ \hline
+  $\mbox{det}(A)\ne 0$ & --- & ---\\ \hline
+\end{tabular}\]
+
+Make sure you learn this table.  
+
+
+\exersisesq
+
+

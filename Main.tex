@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,12pt]{report}
 \usepackage[margin=0.75in]{geometry}
 \usepackage{amsthm}
 \usepackage{amsmath}
@@ -6,15 +6,15 @@
 \usepackage{enumerate} 
 \usepackage{amsfonts}
 \usepackage{fge}
-%\usepackage[small,nohug,heads=LaTeX]{diagrams}
-%\diagramstyle[labelstyle=\scriptstyle]
+\usepackage[small,nohug,heads=LaTeX]{diagrams}
+\diagramstyle[labelstyle=\scriptstyle]
 \usepackage{sseq}
 \usepackage{appendix}
 \usepackage{graphicx}
 \usepackage{array}
 \usepackage{txfonts}
-
-\begin{document}
+\usepackage{subfiles}
+\usepackage{hyperref}
 
 
 \newcommand{\A}[0]{\mathcal{A}}
@@ -26,24 +26,81 @@
 \newcommand{\binomial}[2]{\left(\begin{array}{c}#1\\#2\end{array}\right)}
 \newcommand{\from}[0]{\longleftarrow}
 \newcommand{\vect}[1]{\left(\begin{array}{c}#1\end{array}\right)}
+\newcommand{\indentitem}{\setlength\itemindent{25pt}}
 
+
+\newcommand{\lift}[2]{%
+\setlength{\unitlength}{1pt}
+\begin{picture}(0,0)(0,0)
+\put(0,{#1}){\makebox(0,0)[b]{${#2}$}}
+\end{picture}
+}
+
+\newcommand{\lowerarrow}[1]{%
+\setlength{\unitlength}{0.03\DiagramCellWidth}
+\begin{picture}(0,0)(0,0)
+\qbezier(-28,-4)(0,-18)(28,-4)
+\put(0,-14){\makebox(0,0)[t]{$\scriptstyle {#1}$}}
+\put(28.6,-3.7){\vector(2,1){0}}
+\end{picture}
+}
+
+\newcommand{\upperarrow}[1]{%
+\setlength{\unitlength}{0.03\DiagramCellWidth}
+\begin{picture}(0,0)(0,0)
+\qbezier(-28,11)(0,25)(28,11)
+\put(0,21){\makebox(0,0)[b]{$\scriptstyle {#1}$}}
+\put(28.6,10.7){\vector(2,-1){0}}
+\end{picture}
+}
+
+\newcommand{\toandfrom}[2]{%
+  \upperarrow{#1}
+  \lift{-2}{\ \ ~}
+  \lowerarrow{#2}
+}
+
+\newtheoremstyle{myremark}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\normalfont}  % BODYFONT
+  {0pt}  % INDENT (empty value is the same as 0pt)
+  {\itshape}  % HEADFONT
+  {\emph{:}}         % HEADPUNCT
+  {\newline} % HEADSPACE
+  {}          % CUSTOM-HEAD-SPEC
+
+\newtheoremstyle{mydef}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\itshape}  % BODYFONT
+  {0pt}  % INDENT (empty value is the same as 0pt)
+  {\bfseries} % HEADFONT
+  {.}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {}          % CUSTOM-HEAD-SPEC
+\theoremstyle{mydef}
 \newtheorem{Def}{Definition}[section]
 \newtheorem{Theorem}[Def]{Theorem}
 \newtheorem{Lemma}[Def]{Lemma}
 \newtheorem{Cor}[Def]{Corollary}
-\theoremstyle{remark}
+\theoremstyle{myremark}
 \newtheorem{Remark}[Def]{Remark}
 \newtheorem{UnimportantRemark}[Def]{Unimportant Remark}
 \newtheorem{ImportantRemark}[Def]{Important Remark}
 \newtheorem{RemarkExp}[Def]{Remark For Experts}
 \newtheorem{RemarkProg}[Def]{Remark For Programmers}
+\newtheorem{PedRemark}[Def]{Pedagogical Remark}
+\newtheorem{Warning}[Def]{Warning}
 \newtheorem{Ex}[Def]{Exercise}
 \newtheorem{ExProg}[Def]{Exercise for Programmers}
 \newtheorem{ImpEx}[Def]{Important Exercise}
 \newtheorem{UnimpEx}[Def]{Unimportant Exercise}
 \newtheorem{ImpEasyEx}[Def]{Important Easy Exercise}
 \newtheorem{EasyEx}[Def]{Easy Exercise}
+\newtheorem{OptEx}[Def]{Optional Exercise}
 \newtheorem{TrickyEx}[Def]{Tricky Exercise}
+\newtheorem{HardEx}[Def]{Hard, Unnecessary Exercise}
 \newtheorem{Example}[Def]{Example}
 
 \newcommand{\Hom}{\operatorname{Hom}\nolimits}
@@ -54,18 +111,23 @@
 \newcommand{\im}{\operatorname{Im}\nolimits}
 \newcommand{\spanv}[1]{\operatorname{Span}\nolimits\left\{#1\right\}}
 
+\renewcommand*\thesection{\arabic{section}}
 
+\input{exercises.tex}
 
-\title{Joseph's Linear Algebra Notes}
+\begin{document}
+
+\title{JoYo's Linear Algebra Notes}
 \author{Joseph Victor}
 \maketitle
-
 
 \newpage
 \tableofcontents
 \newpage
-
-\input{VectorsInRn.tex} 
+\subfile{VectorsInRn.tex} 
+\subfile{SpacesInRn.tex} 
+\subfile{LinearTrans.tex} 
+\subfile{SystemsOfCoordinates.tex} 
 
 
 \newpage

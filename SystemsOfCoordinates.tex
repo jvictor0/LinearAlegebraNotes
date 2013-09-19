@@ -1,0 +1,388 @@
+\documentclass[Main.tex]{subfiles} 
+\begin{document}
+\part{Systems of Coordinates and Applications}
+\newpage
+
+
+\section{Systems of Coordinates}
+
+\subsection{Motivating Challenge and Definition}
+The idea of changing coordinate systems is one of the most powerful ideas in linear algebra.
+It can help you reason clearly about linear transformations which do all sorts of stretching and rotating across in all sorts of obscure directions.
+Here is the deal.
+The following exercise should, at this point, be extremely easy:
+\begin{EasyEx}
+  \label{sec:easyaligned}
+  Write down $3\times 3$ matrix for the linear transformation which
+  \begin{enumerate}[a)]
+  \indentitem \item Reflects vectors across the $xy$-plane.
+  \item Projects vectors onto the $xy$-plane.
+  \item Projects vectors onto the $z$-axis.
+  \item Rotates vectors 30 degrees about the $z$ axis.
+  \end{enumerate}
+\end{EasyEx}
+These exercises were easy since it is ``obvious'' what happens to the standard basis vectors.
+In the following exercises you solve fundamentally the same problem, but, because the lines and planes in question are not lined up with the standard basis vectors, it ends up being a bit trickier.  
+Its worth an attempt, but don't spend too long before giving up.  
+\begin{TrickyEx}
+  \label{sec:needbasis}
+  Write down $3\times 3$ matrix for the linear transformation which
+  \begin{enumerate}[a)]
+  \indentitem \item Reflects vectors across the plane spanned by the vectors $\vect{1\\2\\3\\}$ and $\vect{-4\\3\\2}$.
+  \item Projects vectors onto the plane spanned by the vectors $\vect{1\\2\\3\\}$ and $\vect{-4\\3\\2}$.
+  \item Projects vectors onto the line spanned by $\vect{1\\2\\3}$.
+  \item Rotates vectors 30 degrees about the line spanned by $\vect{1\\2\\3}$.
+  \end{enumerate}
+  (hint: Find three linearly independent vectors that it is ``obvious'' what happens to them and write the standard basis vectors as linear combinations of these vectors)
+\end{TrickyEx}
+The takeaway point is that, given a problem, some vectors are easier to work with than others.
+Thus it would be helpful to invent a technique to systematically deal with these sorts of problems.
+
+
+Let $\mathcal{B} = \{\vec{v_1},\cdots,\vec{v_n}\}$ be a basis for $\R^n$.
+For instance, if the problem at hand is to project onto a line spanned by some vector in $\R^2$, you can let $\vec{v_1}$ be that vector and $\vec{v_2}$ be some orthogonal vector.
+Just pick vectors germane to the problem at hand.
+Of course, any vector $\vec{x}\in \R^n$ can be written in exactly one way as a linear combination of the $\vec{v_i}$, that is, we can find some $a_i$ so that 
+\[\vec{x} = a_1\vec{v_1} + \cdots + a_n \vec{v_n}\]
+We say that the $a_i$ are the coordinates of $\vec{x}$ \emph{with respect to} the basis $\mathcal{B}$, which we write as $[\vec{x}]_\mathcal{B}$, or
+\[\left[\vect{x_1\\\vdots\\x_n}\right]_\mathcal{B} = \vect{a_1\\\vdots\\a_n}\]
+\begin{Remark}
+  If $\mathcal{B}=\{\vec{e}_1,\cdots,\vec{e}_n\}$, then $[\vec{x}]_\mathcal{B}=\vec{x}$, since, by definition, 
+  \[\vect{x_1\\\vdots\\x_n} = x_1\vec{e}_1 + \cdots + x_n\vec{e}_n\]
+\end{Remark}
+
+\subsection{Working with Respect to another Basis}
+
+Lets do an example to see how this can work for you.
+It can all be quite disorienting the first time you see it, so go slow and make sure you follow the following example.  
+\begin{Example}
+  Lets find a matrix for the first part of \ref{sec:needbasis} with respect to a nicely chosen basis.  
+  We want to find a matrix for $T$, which reflects vectors across the plane spanned by the vectors $\vect{1\\2\\3\\}$ and $\vect{-4\\3\\2}$.
+  We will start by picking three vectors to make up $\mathcal{B}$, our basis for $\R^3$.  
+  \[\vec{v}_1=\vect{1\\2\\3\\}\hspace{10mm}\vec{v}_2=\vect{-4\\3\\2}\]
+  are natural choices for basis vectors, so we just need one more.  
+  We will pick as our third basis vector the vector
+  \[\vec{v}_3=\vect{1\\2\\3\\}\times\vect{-4\\3\\2} = \vect{-2\\-14\\11}\]
+  We shall calculate $B$, the matrix for the reflection with respect to $\mathcal{B}$.  
+  Since $\vec{e}_i=[v_i]_\mathcal{B}$, we have the columns of $B$ are the where $T$ sends the $v_i$, but written with respect to the basis.
+  Now, the first two vectors in our basis actually don't change when you apply $T$, that is,
+  \[B\vec{e}_1=[T(\vec{v}_1)]_\mathcal{B}=[\vec{v}_1]_\mathcal{B}= \vec{e}_1\hspace{10mm}B\vec{e}_2=[T(\vec{v}_2)]_\mathcal{B}=[\vec{v}_2]_\mathcal{B}= \vec{e}_2\]
+  so we have that the first two columns of $B$ are $\vec{e}_1$ and $\vec{e}_2$ respectively.
+  We also have that the third vector is merely flipped since it is orthogonal to the plane of reflection, that is
+  \[B\vec{e}_3=[T(\vec{v}_3)]_\mathcal{B}=-[\vec{v}_3]_\mathcal{B}= -\vec{e}_3\]
+  so the last column is $-\vec{e}_3$.
+  Thus
+  \[B=\left(\begin{array}{ccc}1 & 0 & 0\\ 0 & 1 & 0 \\ 0 & 0 & -1\end{array}\right)\]
+  Note that this is the same as \ref{sec:easyaligned}.  Why is that no coincidence?
+\end{Example}
+
+\begin{EasyEx}
+  Pick ``nice'' basis $\mathcal{B}$ for each of the remaining problems of \ref{sec:needbasis} and write the given linear transformation in terms of it, as above.
+\end{EasyEx}
+
+
+\subsection{Change of Basis and the (not-so) mysterious $A=CBC^{-1}$ formula}
+
+Remember, however, that our goal was to get these matrices in terms of standard coordinates.  
+To do this we introduce change of basis matrices.  
+
+\begin{EasyEx}[Change of Basis Matrix]
+  Let $\mathcal{B} = \{\vec{v_1},\cdots,\vec{v_n}\}$ be a basis for $\R^n$ and let $C$ be the $n\times n$ matrix whose columns are the $\vec{v_i}$.
+  Show that 
+  \[C[\vec{x}]_\mathcal{B} = \vec{x}\]
+  Conclude that
+  \[[\vec{x}]_\mathcal{B} = C^{-1}\vec{x}\]
+\end{EasyEx}
+Thus if we have a vector written in some coordinate system, we can multiply it by the ``change of basis matrix'' above to see what it is in standard coordinates,
+so to change from standard coordinates to some other system we multiply by the inverse!
+We can kind of sum this up in a funny kind of picture.
+
+\begin{diagram}[w=3em]
+  {\R^n} & \toandfrom{C^{-1}}{C} & {[\R^n]_\mathcal{B}}
+\end{diagram}
+
+\ \\
+
+This gives us a schema for trying to solve certain sorts of problems.
+Suppose we are given a description of a linear transformation, as in \ref{sec:needbasis}.
+We wish to write down a matrix, called $A$, for this linear transformation in standard coordinates.
+So what we do is this.
+We find a basis, $\mathcal{B}$, where it is easy to solve the problem, that is, where we can come up with a matrix $B$ for the linear transformation in question with respect to $\mathcal{B}$.
+At this point the picture looks like this:
+\begin{diagram}
+  \R^n & \rDashto^{A} & \R^n\\
+  \\
+  [\R^n]_\mathcal{B} & \rTo^{B} & [\R^n]_\mathcal{B}\\
+\end{diagram}
+We draw $A$ as a dashed line because we don't know what it is, even though we know $B$.
+But wait, we also know how to get from $\R^n$ to $[\R^n]_\mathcal{B}$ and back; you merely multiply by the change of basis matrix.
+Thus we can draw in vertical arrows, like so
+\begin{diagram}
+  \R^n & \rDashto^{A} & \R^n\\
+  \dTo^{C^{-1}} & & \uTo^{C}\\
+  [\R^n]_\mathcal{B} & \rTo^{B} & [\R^n]_\mathcal{B}\\
+\end{diagram}
+But this is great, because it means that applying $A$ (which is unknown) is the same as applying $C^{-1}$, then $B$, then $C$ (which are known).
+After taking a second to remember which order matrix multiplication happens in, we get:
+\begin{ImpEasyEx}
+  Conclude that $A=CBC^{-1}$.
+\end{ImpEasyEx}
+\begin{Ex}
+  Can you draw the diagram above from scratch?
+  Remember, we want to ``go to the other system of coordinates, solve the problem, and come back''.  
+  If so, you won't need to memorize the formula $A=CBC^{-1}$, which is good because you can easily get confused and swap $A$ and $B$ or $C$ and $C^{-1}$.
+\end{Ex}
+
+\begin{ImpEx}
+  Do \ref{sec:needbasis} with this technique.
+\end{ImpEx}
+
+\begin{ImportantRemark}
+  \label{sec:changeintrinsic}
+  If we have a vector written with respect to two different bases, we really want to think of those two descriptions as merely different \emph{names} for the \emph{same} vector.
+  Various intrinsic properties of vectors do not change when changing the basis.
+  For instance, the zero vector stays the zero vector, and if there is a linear relationship between some vectors, that relationship will still hold after applying a change of coordinates.  
+  That is, if
+  \[c_1\vec{v}_1 + \cdots + c_k\vec{v}_k = \vec{0}\]
+  then 
+  \[c_1[\vec{v}_1]_\mathcal{B} + \cdots + c_k[\vec{v}_k]_\mathcal{B} = [\vec{0}]_\mathcal{B}=\vec{0}\]
+  In particular, if one vector is a multiple of another or a sum of some others, that relationship will hold, that is, written somewhat strangely,
+  \[c[\vec{v}]_\mathcal{B} = [c\vec{v}]_\mathcal{B}\]
+  \[[\vec{v}]_\mathcal{B} + [\vec{w}]_\mathcal{B} = [\vec{v} + \vec{w}]_\mathcal{B}\]
+  
+  However, some properties are not always preserved when you change basis.
+  For instance, the length and dot product can change if you change the basis, because they somehow ``depend on how we measure things''\footnote{The dot product and length will change unless the change-of-basis matrix $C$ is ``orthonormal'', which means each pair of columns are orthogonal and each column has length 1.  This is a very interesting class of matrices because they represent linear transformations which ``do not change how we measure things''.   We will not discuss them much in this course.}.
+  An easy example is letting the $\mathcal{B}=\{2e_1,\cdots,2e_n\}$; changing to this basis just cuts all the coordinates in half, which cuts the length by half and the dot product by a fourth.
+\end{ImportantRemark}
+
+\begin{Ex}
+  Show the things asserted in \ref{sec:changeintrinsic}.
+  They should follow easily from fact that you can change basis by multiplying by a matrix.
+\end{Ex}
+
+We find that matrices with the relationship above share a number of properties, so we call them similar.  
+\begin{Def}[Similar Matrices]
+  We say two $n\times n$ matrices, $A$ and $B$, are similar if there is some matrix $C$ such that
+  \[A=CBC^{-1}\]
+\end{Def}
+
+\begin{EasyEx}
+  Show that, if $A$ and $B$ are similar, then
+  \[\mbox{det}(A)=\mbox{det}(B)\]
+  (hint: \ref{sec:detprod})
+\end{EasyEx}
+\begin{Ex}
+  Show that if $A=CBC^{-1}$, then for any whole number $k$,
+  \[A^k = CB^kC^{-1}\]
+  (hint: $A^2=CBC^{-1}CBC^{-1}$)
+\end{Ex}
+\begin{EasyEx}
+  Show that if $A=CBC^{-1}$, then 
+  \[A^{-1} = C^{-1}B^{-1}C\]
+  (hint: \ref{sec:invcontra})
+\end{EasyEx}
+
+\exersisesr
+
+\section{Eigenvectors}
+
+\subsection{Definition}
+We saw last chapter that changing coordinate systems is great, but it only seems to work if the problem is low dimensional or you somehow know that certain vectors which behave nicely.
+Given some random problem, choosing a basis might be very hard.
+Luckily there is a very intrinsic way of saying if a vector should be part of a basis.
+\begin{Def}[Eigenvectors and Eigenvalues]
+  Let $A$ be an $n\times n$ matrix and $\lambda\in \R$ be a scalar.
+  Then we say a nonzero vector $\vec{x}\in \R^n$ is an eigenvector if
+  \[A\vec{x}=\lambda\vec{x}\]
+  and we call $\lambda$ an eigenvalue of $A$.
+\end{Def}
+\begin{Remark}
+  This looks bizarre!
+  Whats going on here?
+  It seems that $\vec{x}$ is an eigenvalue of $A$ if multiplying by $A$ is the same as multiplying by some scalar, which has the funny Greek name $\lambda$.
+  Since multiplying a matrix mixes up all the different coordinates, this is a very special situation indeed, most vectors are not eigenvectors.
+  Make sure the types make sense to you!
+\end{Remark}
+\begin{EasyEx}
+  It is somewhat difficult to find eigenvectors, but it is at least easy to check if a vector is an eigenvector.
+  Let
+  \[A=\left(\begin{array}{cc} 1 & 1 \\ 0 & 2\end{array}\right)\]
+  Check that $\vect{1\\0}$ and $\vect{1\\1}$ are eigenvectors by multiplying them by $A$.  
+  What are the eigenvalues?
+\end{EasyEx}
+\begin{EasyEx}
+  Show that $\vec{x}$ is an eigenvector of $A$ with eigenvalue 0 if and only if $\vec{x}\in N(A)$.
+  (hint: write the definition of eigenvector with eigenvalue 0)
+\end{EasyEx}
+\begin{Ex}[Eigenspace]
+  Let $A$ be an $n\times n$ matrix.  
+  Fix $\lambda\in \R$ and show that the set of solutions to $A\vec{x}=\lambda\vec{x}$, is a subspace of $\R^n$.
+  Thus the eigenvectors with eigenvector $\lambda$, along with zero, form a subspace.
+  We call this the eigenspace or $\lambda$-eigenspace and denote it $E_\lambda(A)$ or $E_\lambda$.
+\end{Ex}
+
+\begin{Ex}
+  Show that if $A$ is and $n\times n$ matrix and $\vec{x}$ is an eigenvector with eigenvalue $\lambda$, and if $B=CAC^{-1}$, then $C\vec{x}$ is an eigenvector of $A$.
+  Conclude that similar matrices have the same eigenvalues.
+\end{Ex}
+\begin{Ex}
+  Show that if $A$ is an $n\times n$ matrix with eigenvalue $\lambda$, then
+  \begin{enumerate}[a)]
+    \indentitem \item if $c\in \R$, then $cA$ has eigenvalue $c\lambda$
+  \item if $k$ is a whole number, $A^k$ has eigenvalue $\lambda^k$
+  \item if $A$ is invertible then $A^{-1}$ has eigenvalue $\frac{1}{\lambda}$
+  \end{enumerate}
+  (hint: in each case, what happens when you multiply the modified matrix by an eigenvector of the original matrix)
+\end{Ex}
+
+
+\subsection{Diagonal Matrices}
+
+Why are eigenvectors so nice?
+Because if we write a matrix with respect to a basis of eigenvectors, it ends up diagonal!
+\begin{ImpEasyEx}[Diagonalizable Matrices]
+  Let $A$ be an $n\times n$ matrix.  
+  If $\mathcal{B}=\{\vec{v}_1,\cdots\vec{v}_n\}$, where the $\vec{v}_i$ are linearly independent eigenvectors of $A$ with eigenvalues $\lambda_1,\cdots,\lambda_n$, then 
+  show that $B$, the matrix with respect to $\mathcal{B}$, is diagonal (that is, it has only zeros off the main diagonal).  
+  A matrix with this property is called diagonalizable.
+  (hint: $B\vec{e}_i= [A\vec{v}_i]_\mathcal{B}$)
+\end{ImpEasyEx}
+Diagonal matrices are the simplest kind of matrix.
+For evidence of this, write $A\vec{x}=\vec{b}$ as a system of equations, when $A$ is diagonal.
+Each equation only involves a single variable!
+\begin{EasyEx}
+  If $A$ is diagonal, show that $\mbox{det}(A)$ is just the product of the diagonal entries.
+\end{EasyEx}
+\begin{EasyEx}
+  Show that if $A$ is diagonal, then $A$ is invertible if and only if each entry on the diagonal is nonzero.
+\end{EasyEx}
+\begin{EasyEx}
+  Show that the standard basis vectors are eigenvectors of a diagonal matrix.
+\end{EasyEx}
+
+
+\subsection{Finding Eigenvalues and Eigenvectors}
+
+Suppose $A$ is an $n\times n$ matrix and somehow we know that a specific $\lambda$ is an eigenvalue.
+Then since $\lambda\vec{x}=\lambda I \vec{x}$
+Then we can rewrite the eigenvector equation as
+\[A\vec{x}-\lambda I\vec{x} = (A-\lambda I)\vec{x} = \vec{0}\]
+or
+\[\vec{x}\in N(A-\lambda I)\]
+Thus, in order for $\lambda$ to be an eigenvalue, we need $\mbox{det}(A-\lambda I)=0$.
+So to find the eigenvectors of $A$, we need first to find the eigenvalues by solving $\mbox{det}(A-\lambda I)=0$ for $\lambda$ and then, for each solution, finding a basis for $N(A-\lambda I)$.  
+
+\begin{ImpEx}
+  Pick some actual matrices from the book and calculate their eigenvectors, eigenvalues and eigenspaces.
+\end{ImpEx}
+
+\begin{Ex}
+  \label{sec:eigentrans}
+  If $A$ is an $n\times n$ matrix with eigenvalue $\lambda$, show that $A^T$ also has eigenvalue $\lambda$. 
+  (hint: what is $\mbox{det}(A^T-\lambda I)$?  Use \ref{sec:dettrans} and the fact that $A^T-\lambda I=(A-\lambda I)^T$)
+\end{Ex}
+
+Notice that $\mbox{det}(A-\lambda I)$ is a polynomial expression, since if you expand it out using Kramer's rule you only add, subtract, multiply and divide.
+We call this the ``characteristic polynomial'' of $A$, though that terminology will not be important.  
+Notice further that the degree of this polynomial is $n$.
+That means if $n=2$ you can solve it using the quadratic formula.
+However, if $n>2$, finding eigenvalues is a real pain, and if $n>4$ this is actually impossible to always find exact solutions.  
+This also means there are at most $n$ eigenvalues, since a degree $n$ polynomial has at most $n$ roots.  
+
+\begin{Warning}
+  All the matrices you will see in this class have real eigenvalues, but that doesn't need to be the case.
+  For instance, what are the eigenvalues of the matrix
+  \[A=\left(\begin{array}{cc} 0 & 1 \\ -1 & 0\end{array}\right)\]
+  We have that
+  \[\mbox{det}(A-\lambda I) = \lambda^2 + 1\]
+  which has roots
+  \[\lambda = \pm \sqrt{-1}\]
+  The $\sqrt{-1}$, also known simply as $i$, the imaginary unit, does not live in $\R$ but rather in $\C$.
+  If such a thing happens to you, you can either say give up or realize that every word I've said in these notes works equally well for complex numbers.
+  Either way, since you (might) know that roots of real polynomials come in conjugate pairs, you know that if $x+iy$ is an eigenvalue, then so is $x-iy$.  
+\end{Warning}
+
+\begin{Remark}
+  Here's a tip.
+  When calculating eigenvalues of matrices larger than $2\times 2$, if you get stuck, look at the matrix itself.
+  Often you can figure out one of the eigenvalues just by staring at it.
+  For instance, if all of the rows (or, by \ref{sec:eigentrans}, columns) add up to the same number $c$, you know the vector with all coordinates 1 is an eigenvector with eigenvalue $c$.
+  Going back to the polynomial you were trying to factor, you can then divide by $\lambda - c$, using polynomial long division, since you know $c$ is a root.
+  Tricks like that can get you out of factoring a higher degree polynomial by hand.
+\end{Remark}
+
+\begin{Remark}
+  The following relationship is helpful.  
+  If $\lambda$ is an eigenvalue, it is a root of the polynomial $\mbox{det}(A-\lambda I)$, and say it has multiplicity $r$.
+  Then 
+  \[1 \le \mbox{dim}(E_\lambda) \le r\]
+  that is, the dimension of the eigenspace for a given eigenvalue can be no more than the multiplicity of that root in the characteristic polynomial.  
+  If you know how to do induction, go ahead and try to prove it, first for diagonal matrices and then for general ones.  
+\end{Remark}
+
+\exersisess
+
+\section{Symmetric Matrices}
+
+The study of symmetric matrices is an interesting topic, but one which requires a tiny bit more material to fully appreciate.
+Symmetric matrices come up, for instance, in machine learning and graph theory.  
+You should think of the next two sections as a teaser for future linear algebra classes; learn the statements, but don't worry too much about full understanding of the spectral theorem.
+
+
+\subsection{Transpose Review}
+
+Recall that the transpose of an $m\times n$ matrix $A$ is an $n\times m$ matrix, denoted $A^T$, which has its $(i,j)$ and $(j,i)$ entries flipped.
+We sometimes play fast and loose with types and say the transpose of a vector in $\R^n$ is the $n\times 1$ matrix given by just flipping the vector on its side.
+Some easy things to check:
+\begin{EasyEx}
+  \begin{enumerate}[a)]
+    \indentitem \item If $\vec{x},\vec{y}\in\R^n$, then $\vec{x}\cdot\vec{y}=\vec{x}^T\vec{y}=\vec{y}^T\vec{x}$
+  \item If $A$ and $B$ are matrices of the same size then $(A+B)^T=A^T+B^T$.
+  \item If $A$ is an $m\times n$ matrix and $\vec{e}_i$ is a unit vector in $\R^n$ and $\vec{e}_j$ is a unit vector in $\R^m$, then $\vec{e}_j^TA\vec{e}_i$ is the $(j,i)$-entry of $A$.
+  \item If $A$ and $B$ are matrices which can be multiplied then $(AB)^T=B^TA^T$.  (hint: $\vec{e}_j(AB)^T\vec{e}_i=\vec{e}_iAB\vec{e}_j$.  This one is slightly harder)
+  \end{enumerate}
+\end{EasyEx}
+
+\subsection{Properties or Symmetric Matrices}
+
+An $n\times n$ matrix is called symmetric if $A^T=A$, that is, if the $(i,j)$-entry is equal to the $(j,i)$-entry for each $i$ and $j$.
+Symmetric matrices have a funny little property which goes like this: if $A$ is a symmetric matrix and $\vec{x}$ and $\vec{y}$ are any vectors, then
+\[(A\vec{x})\cdot\vec{y} = \vec{x}\cdot (A\vec{y})\]
+Why is that the case?
+Recall that
+\[\vec{x}\cdot \vec{y} = \vec{x}^T\vec{y} = \vec{y}^T\vec{x}\]
+Then we have
+\begin{eqnarray*}
+  (A\vec{x})\cdot\vec{y} &=& (A\vec{x})^T\vec{y} \\
+  &=& \vec{x}^TA^T\vec{y}\\
+  &=& \vec{x}^TA\vec{y}\\
+  &=& \vec{x}\cdot (A\vec{y})
+\end{eqnarray*}
+where we used the formula $(AB)^T=B^TA^T$ in the second line and the fact that $A$ is symmetric to replace $A^T$ with $A$ in the third.
+We can use this fact to show another nice fact.  If $\vec{x}$ and $\vec{y}$ are eigenvalues of a symmetric $n\times n$ matrix $A$ with different eigenvalues $\lambda$ and $\mu$, then $\vec{x}\cdot\vec{y}-0$.
+Said again, eigenvectors with different eigenvalues are orthogonal.
+To see this, apply the formula:
+\begin{eqnarray*}
+  \lambda\vec{x}\cdot\vec{y} &=& (A\vec{x})\cdot\vec{y}\\
+  &=& \vec{x}\cdot (A\vec{y})\\
+  &=& \vec{x}\cdot \mu\vec{y}\\
+  &=&\mu\vec{x}\cdot\vec{y}
+\end{eqnarray*}
+and thus, moving everything to one side
+\[(\lambda-\mu)\vec{x}\cdot\vec{y}=0\]
+but since $\lambda\ne \mu$, we must have $\vec{x}$ and $\vec{y}$ are orthogonal.
+We end with two important theorems which we opt not to prove, since the proofs require some dealing with complex numbers and a longish induction.
+\begin{Theorem}
+  If $A$ is a symmetric $n\times n$ matrix, all the eigenvalues of $A$ are real.
+\end{Theorem}
+\begin{Theorem}[Spectral Theorem]
+  If $A$ is a symmetric $n\times n$ matrix, there is a basis of $\R^n$ made up of eigenvectors of $A$ (that is, symmetric matrices are diagonalizable), and furthermore, each pair of vectors in that basis are orthogonal.  
+\end{Theorem}
+
+\exersisest
+
+\section{Quadratic Forms}
+
+\exersisesu
+
+\end{document}
