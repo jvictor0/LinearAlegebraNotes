@@ -191,13 +191,168 @@ This is a rather abstract definition, so lets unpack it a bit.
 
 \section{Dot and Cross Products}
 
+In this chapter, we are going to talk about some ways of measuring vectors.
+The ``magnitude-and-direction'' viewpoint is especially helpful in this case.
+
 \subsection{Dot Products}
+
+Remember that we don't allow you to multiply two vectors and get another vector.
+The dot product may be called a product and look like multiplication, but you should think of it as a sort of measurement of size and similarity.
+In particular, the dot product measures how ``big'' and close together vectors are.
+
+There are two different formulas for the dot product.
+We will start with the first
+\begin{Def}[Dot Product]
+  Let
+  \[\vec{x}=\vect{x_1\\\vdots\\x_n} \hspace{10mm}\vec{y}=\vect{u_1\\\vdots\\u_n}\]
+  be two vectors in $\R^n$.
+  Then define
+  \[\vec{x}\cdot \vec{y} = x_1y_1 + \cdots + x_ny_n\]
+\end{Def}
+\begin{Remark}
+  As always, we say the types.
+  The dot product takes two vectors in $\R^n$ and gives back a scalar.
+\end{Remark}
+Lets do some easy properties of the dot product, before we go on to see how its useful.
+These exercises should be as easy as writing out both sides of the equation and noticing they are the same.  
+\begin{EasyEx}
+  Show that, if $\vec{e}_i$ is the standard basis vector in $\R^n$ (that is, all coordinates 0 except the $i^{th}$, which is 1), and if $\vec{x}=\vect{x_1\\\vdots\\x_n}$, then
+  \[\vec{e}_i\cdot \vec{x} = x_i\]
+\end{EasyEx}
+\begin{EasyEx}
+  Show that, if $\vec{x},\vec{y}\in\R^n$, then
+  \[\vec{x}\cdot\vec{y}=\vec{y}\cdot\vec{x}\]
+\end{EasyEx}
+\begin{EasyEx}
+  \label{sec:bilinear}
+  Show that, if $\vec{x},\vec{y}\in\R^n$ and $c\in \R$, then
+  \[(c\vec{x})\cdot\vec{y}=c(\vec{x}\cdot\vec{y})=\vec{x}\cdot(c\vec{y})\]
+  So scalars ``distribute'' in a funny little way.
+\end{EasyEx}
+We begin by thinking about what happens if you dot a vector in $\R^2$ with itself.
+\begin{ImpEx}
+  \label{sec:selfdotlen}
+  Use the Pythagorean Theorem to show that if $\vect{x\\y}\in \R^2$, then 
+  \[\sqrt{\vect{x\\y}\cdot\vect{x\\y}}\]
+  is the ``length'' of vector, that is, the distance between the point $\vect{x\\y}$ and $\vect{0\\0}$.
+  (hint: if you get stuck, draw a picture!)
+  Does this still work for $\vect{x\\y\\z}\in\R^3$?
+  How about $\vec{x}\in \R^{41}$?
+\end{ImpEx}
+Inspired by \label{sec:selfdotlen}, we define the length of a vector
+\begin{Def}[Length of a Vector]
+  Let $\vec{v}\in \R^n$.  
+  Define the length $\vec{v}$, denoted $\|\vec{v}\|$, by
+  \[\|\vec{v}\| = \sqrt{\vec{v}\cdot\vec{v}}\]
+  The length is also sometimes called the ``magnitude'' or ``norm''.
+\end{Def}
+The next exercise makes good intuitive sense:
+\begin{EasyEx}[Lengths Behave as they Ought to]
+  Show that, if $\vec{x}\in\R^n$ and $c\in \R$ and $c\ge 0$, then 
+  \[\|c\vec{x}\| = c\|\vec{x}\|\]
+  (hint: \ref{sec:bilinear})
+\end{EasyEx}
+This is great.  At least when you dot a vector with itself, it tells you how ``big'' the vector is.
+Even better, if you multiply a vector by 2, its ``gets twice as big''.
+
+Now let's investigate what happens if we dot any old vectors together.
+Again, we start by considering the case in $\R^2$.
+\begin{ImpEx}[Cosine Dot Product Formula]
+  Let $\vec{x}$ and $\vec{y}$ be vectors in $\R^2$, and $\theta$ the angle between them.
+  By applying the law of cosines to the triangle with corners at $\vec{0}$, $\vec{x}$ and $\vec{y}$, show that 
+  \[\vec{x}\cdot\vec{y}=\|\vec{x}\|\|\vec{y}\|\cos(\theta)\]
+  (hint: the length of the third side of this triangle is $\|\vec{x}-\vec{y}\|$.  What happens when you expand that into coordinates?)
+\end{ImpEx}
+Once again, we are inspired by the situation in $\R^2$, so we want this to be true for any $n$.
+However, it can be hard to say exactly what we mean by ``angle between two vectors in $\R^5$''.
+Since we don't quite have the language to say what we mean, I will tell a somewhat fanciful story.
+Take two vectors in $\R^n$ and rotate them so that they are both in the $x_1x_2$-plane, which looks kind of like $\R^2$.
+Of course, I haven't said why rotating doesn't change the dot product, or even what I meant by rotating in higher dimensions\footnote{If you go on to a higher level linear algebra class like math 113, they will say, roughly, that a rotation is just anything which doesn't change the dot product}, but bear with me.  
+Since the two vectors are nicely aligned with the $x_1x_2$-plane, the law of cosines works, and we get the following theorem.  
+\begin{Theorem}[Dot Product Cosine Formula]
+  \label{sec:cosineform}
+  Let $\vec{x}$ and $\vec{y}$ be vectors in $\R^n$ (for any $n$), and $\theta$ the ``angle between'' them.
+  \[\vec{x}\cdot\vec{y}=\|\vec{x}\|\|\vec{y}\|\cos(\theta)\]
+\end{Theorem}
+Thus, the dot product measures not only how big things are, but also how narrow the angle between them is.
+If the two vectors are in the same line, the angle between them is 0, and $\cos(0)=1$, so we just get the product of the lengths.
+If the two vectors are perpendicular, the angle between them is $\pi/2$, and since $\cos(\pi/2)=0$, we get the dot product is zero, no matter how big the vectors involved are.
+For what its worth, if two vectors are pointing in opposite directions (that is, the angle between them is more than $\pi/2$ but less than $3\pi/2$) the sign of the formula aboove will be negative.
+
+Since mathematicians love making up words, here is a synonym for perpendicular that will be used throughout this book:
+\begin{Def}[Orthogonal]
+  Vectors $\vec{x}$ and $\vec{y}\in\R^n$ are called orthogonal if
+  \[\vec{x}\cdot\vec{y}=0\]
+\end{Def}
+\begin{EasyEx}
+  Show that the $\vec{0}$ is orthogonal to every other vector.
+\end{EasyEx}
+
+
 
 \subsection{Cross Products}
 
-\begin{Ex}
-  \label{sec:crossprodisarea}
+The cross product is a special object which only works in $\R^3$.  
+Given two vectors in $\R^3$ which are not multiples of each other, there is a unique line orthogonal to them both (try to visualize this).
+The cross product will give you a vector along that line, whose length is determined not by how small the angle between the two vectors is, but by how large.
+It is defined as follows
+\begin{Def}[Cross Product]
+  Define the cross product of two vectors in $\R^3$ by
+  \[\vect{x_1\\x_2\\x_3}\times\vect{y_1\\y_2\\y_3} = \vect{x_2y_3-x_3y_2\\x_3y_1-x_1y_3\\x_1y_2-x_2y_1}\]
+\end{Def}
+Wow; that formula is a complicated looking!
+Remembering that we care about types, note that the cross product takes two vectors in $\R^3$ and returns a vector in $\R^3$.  
+Remember that the goal of the cross product is to get a vector orthogonal to both of the two original vectors.
+\begin{ImpEx}
+  Show that if $\vec{x},\vec{y}\in\R^3$, then $\vec{x}\times\vec{y}$ is orthogonal to both $\vec{x}$ and $\vec{y}$ by writing out the dot product explicitly and seeing that everything cancels.
+\end{ImpEx}
+\begin{EasyEx}
+  The cross product is not commutative.
+  Show that
+  \[\vec{x}\times\vec{y} = - \vec{y}\times\vec{x}\]
+\end{EasyEx}
+\begin{EasyEx}
+  Show that
+  \[\vec{x}\times\vec{x}=\vec{0}\]
+\end{EasyEx}
+\begin{EasyEx}
+  Show that, if $\vec{x},\vec{y}\in\R^3$ and $c\in \R$, then
+  \[(c\vec{x})\times\vec{y}=c(\vec{x}\times\vec{y})=\vec{x}\times(c\vec{y})\]
+\end{EasyEx}
+
+We will now prove one of the more important properties of the cross product in a few steps.
+\begin{Ex}[optional, but make sure you know the result]
+  \label{sec:crossid}
+  Show that, for $\vec{x},\vec{y}\in\R^3$, that
+  \[\|\vec{x}\times\vec{y}\|^2 = \|\vec{x}\|^2\|\vec{y}\|^2 - (\vec{x}\cdot\vec{y})^2\]
+  This should amount to expanding out both sides and noticing they are the same.
+  Make sure you have plenty of paper for this one, this is a good bit of number crunching.
 \end{Ex}
+\begin{Ex}
+  \label{sec:sineform}
+  Use \ref{sec:crossid}, \ref{sec:cosineform} and the fact that $\sin^2(x)=1-\cos^2(x)$ to show that,
+  if $\vec{x},\vec{y}$ are two vectors in $\R^3$ with angle $\theta$ between them, then
+  \[\|\vec{x}\times\vec{y}\| = \|\vec{x}\|\|\vec{y}\|\sin(\theta)\]
+\end{Ex}
+
+\begin{EasyEx}
+  \label{sec:crossprodisarea}
+  Recalling that the area of a triangle with sides of length $a,b$ and $c$ and angle $\theta$ between the sides of length $a$ and $b$ is
+  \[\frac{ab\sin(\theta)}{2}\]
+  show that $\|\vec{x}\times\vec{y}\|$ is the area of the parallelogram with corners $\vec{0}$, $\vec{x}$, $\vec{y}$ and $\vec{x}+\vec{y}$.
+  (hint: \ref{sec:sineform})
+\end{EasyEx}
+
+\begin{Remark}
+  Cross products and dot products are geometric objects, so make sure you know when to use them.  
+  The first midterm tends to have one or two cute geometry problems, which the alert student will know to solve with dot products and cross products.
+  Often times you will have to compute the area or some angle of a random triangle in $\R^3$, or find a vector perpendicular to it.
+  If you come across such a question, start by translating the figure so that one of the interesting corners is at the origin.
+  That is, given a triangle with corners $\vec{a},\vec{b}$ and $\vec{c}$, define $\vec{v}=\vec{b}-\vec{a}$ and $\vec{w}=\vec{c}-\vec{a}$.
+  The triangle with corners $\vec{0},\vec{v}$ and $\vec{w}$ is geometrically the same as the original triangle (just moved over a bit), 
+  but the dot product, cross product and length formula can give you information about it.
+\end{Remark}
+  
 
 \exersisesd
 
