@@ -1,6 +1,7 @@
 \documentclass[Main.tex]{subfiles} 
 \begin{document}
 \part{Systems of Coordinates and Applications}
+\label{sec:sysofcoordsapps}
 \section{Systems of Coordinates}
 
 \subsection{Motivating Challenge and Definition}
@@ -232,6 +233,12 @@ Luckily there is a very intrinsic way of saying if a vector should be part of a 
   (hint: in each case, what happens when you multiply the modified matrix by an eigenvector of the original matrix)
 \end{Ex}
 
+\begin{ImpEx}
+  What are the eigenvalues (and eigenvectors) of a reflection?
+  How about an orthogonal projection?  
+  Do rotations in $\R^2$ that aren't by multiplies of $\pi$ have eigenvectors?
+\end{ImpEx}
+
 
 \subsection{Diagonal Matrices}
 
@@ -296,7 +303,8 @@ This also means there are at most $n$ eigenvalues, since a degree $n$ polynomial
   \[\lambda = \pm \sqrt{-1}\]
   The $\sqrt{-1}$, also known simply as $i$, the imaginary unit, does not live in $\R$ but rather in $\C$.
   If such a thing happens to you, you can either say give up or realize that every word I've said in these notes works equally well for complex numbers.
-  Either way, since you (might) know that roots of real polynomials come in conjugate pairs, you know that if $x+iy$ is an eigenvalue, then so is $x-iy$.  
+  Either way, since you (might) know that roots of real polynomials come in conjugate pairs, you know that if $x+iy$ is an eigenvalue, then so is $x-iy$.\footnote{This is actually awesome!
+  If you know some complex analysis, you know that $e^{i\theta}$ is somehow like a rotation, and the rotation matrix by $\theta$ has $e^{i\theta}$ as a complex eigenvalue.}
 \end{Warning}
 
 \begin{Remark}

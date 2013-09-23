@@ -108,11 +108,127 @@ Tests like to ask questions about injections and surjections which are free poin
 
 \section{Examples of Linear Transformations}
 
+\label{sec:examplelintranssec}
 
+\begin{Warning}
+  We will use some ideas from Chapter \ref{sec:matmultsec} in this section.
+  I think the course text should have put these two chapters in the opposite order, as the ideas in the next section support the ideas from this one.
+  I leave the sections in this order for consistency with the book.
+\end{Warning}
+  
+\begin{Warning}
+  If you find it difficult, after reading this chapter, to find matrices for non ``axis-aligned'' linear transformations,  chapter \ref{sec:sysofcoordsapps} may be of use.
+\end{Warning}
+
+In this chapter we will see some naturally interesting geometric transformations, and talk about how to build a matrix from them.
+Remember you can use \ref{sec:findmatrix} to find the matrix of a linear transformation, which is a very important skill on the exams and in life.  
+You should have a general idea of what each of these things are and how to find their matrices.
+
+\subsection{Scalings}
+
+A scaling is a linear transformation which makes vectors bigger or smaller by some factor of their length.
+We could make all vectors twice as big, or all vectors half as big.
+\begin{EasyEx}
+  What is the matrix for the linear transformation which scales all vectors in $\R^n$ by $c$?
+\end{EasyEx}
+Of course, we could scale a different amount in different directions.
+For instance, we could have a linear transformation which doubles the $x$ coordinate and triples the $y$ coordinate in $\R^2$.
+\begin{EasyEx}
+  What is the matrix for the linear transformation which scales the $\vec{e}_i$ by $c_i$ for each $i$?
+\end{EasyEx}
+
+
+\subsection{Rotations}
+
+A rotation in $\R^2$ is just that, it rotates each vector about the origin by some angle $\theta$.
+It is of course a linear transformation.
+\begin{Ex}
+  Show that the matrix for a ration by $\theta$ is 
+  \[\left(\begin{array}{cc} \cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta)\end{array}\right)\]
+\end{Ex}
+\begin{Ex}
+  Show that the columns of a rotation matrix are orthogonal.
+  Show that if $R$ is a rotation matrix and $\vec{x},\vec{y}\in \R^2$, then
+  \[\vec{x}\cdot\vec{y} = (R\vec{x})\cdot(R\vec{y})\]
+\end{Ex}
+The next exercise is put here for organizational reasons, although requires one to know a bit about matrix multiplication.
+\begin{ImpEx}
+  \label{sec:addingangles}
+  Explain without doing any computation why
+  \[\left(\begin{array}{cc} \cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta)\end{array}\right)
+  \left(\begin{array}{cc} \cos(\phi) & -\sin(\phi) \\ \sin(\phi) & \cos(\phi)\end{array}\right) = 
+  \left(\begin{array}{cc} \cos(\theta+\phi) & -\sin(\theta+\phi) \\ \sin(\theta+\phi) & \cos(\theta+\phi)\end{array}\right)\]
+  (hint: what does matrix multiplication mean again?)
+\end{ImpEx}
+
+You can also rotate about some axis in $\R^3$.
+For instance, if you rotate about the $z$ axis, the same thing happens in the $xy$-plane, and the $z$ axis stays fixed.
+Thus the matrix for such a transformation is
+\[\left(\begin{array}{ccc}  \cos(\theta) & -\sin(\theta) & 0\\ \sin(\theta) & \cos(\theta) & 0 \\ 0 & 0 & 1 \end{array}\right)\]
+Similar logic works for the other two axes.
+\begin{Ex}
+  Show that a rotation matrix about the $x$ and $y$ axis in $\R^3$ are given
+  \[\left(\begin{array}{ccc}  1 & 0 & 0 \\ 0 & \cos(\theta) & -\sin(\theta)\\ 0 & \sin(\theta) & \cos(\theta) \end{array}\right)
+  \hspace{10mm}
+  \left(\begin{array}{ccc}  \cos(\theta) & 0 & -\sin(\theta)\\ 0 & 1 & 0 \\ \sin(\theta) &  0 & \cos(\theta) \end{array}\right)\]
+\end{Ex}
+
+How do we rotate a vector across an arbitrary axis?
+Well, any rotation in $\R^3$ is made up of rotations about the standard basis vectors.
+Thus, since matrix multiplication is the same as ``do one and then do the other'', you can multiply matrices which rotate about standard axis to get arbitrary rotations.
+But be careful, these matrices don't commute with each other!
+
+\subsection{Reflections}
+
+Reflections are like mirrors; they take each vector and swap it with another vector on the opposite side of some hyperplane.
+For instance, we can reflect across the $x$ axis in $\R^2$ with
+\[\left(\begin{array}{cc} 1 & 0 \\ 0 & -1\end{array}\right)\]
+What if we want to reflect across an arbitrary line?
+Well, reflecting across a line which makes an angle $\theta$ with the $x$ axis is of course the same as rotating by $-\theta$, then reflecting across the $x$ axis, then rotating back\footnote{We will talk more about this technique of doing something, doing an easy transformation and then undoing something in part \ref{sec:sysofcoordsapps}}.  
+That is, the matrix for such a reflection is
+\[\left(\begin{array}{cc} \cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta)\end{array}\right)\left(\begin{array}{cc} 1 & 0 \\ 0 & -1\end{array}\right)
+\left(\begin{array}{cc} \cos(\theta) & \sin(\theta) \\ -\sin(\theta) & \cos(\theta)\end{array}\right)\]
+\begin{Ex}
+  Work out the explicitly the matrix for a reflection in $\R^2$ about a line making an angle $\theta$ with the $x$-axis.  
+\end{Ex}
+\begin{ImpEx}
+  Explain, using the methods above, how to find the matrix reflecting across an arbitrary plane in $\R^3$.
+  You don't have to actually do any computations.  
+\end{ImpEx}
+
+\subsection{Projections}
+
+Projections are only slightly less intuitive than the above types of linear transformations, but fear not, they are easy enough to work with once you get the hang of it.
+Let $S$ be a subspace of $\R^n$ (for instance, a plane or line in $\R^3$).
+Then the projection $P$ onto $S$ (also called the orthogonal\footnote{there are other kinds of projections too, but orthogonal are the simplest} projection) takes each vector $\vec{x}\in\R^n$ to the closest point in $S$ to $\vec{x}$.
+That is, if $S$ is a line and $\vec{x}$ is some vector, there is a unique line perpendicular to $S$ through $\vec{x}$, and $P\vec{x}$ is the intersection of that line and $S$.
+\[\mbox{MAKE A PICTURE}\]
+We can draw a similar picture in our mind for projections onto planes.
+
+How to find the matrix for such a thing.
+Again, let us start with a simple example: the ``floor plan'' matrix
+\[\left(\begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 0\end{array}\right)\]
+This matrix takes each point in $\R^3$ to the point directly ``below'' or ``above'' it on the ``floor'' (that is, the $xy$-plane).
+This is the matrix for the orthogonal projection onto the $xy$-plane.
+
+We can also consider
+\[\left(\begin{array}{ccc} 1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{array}\right)\]
+This takes each point and throws away the $y$ and $z$ coordinates, projecting to the closest point on the $x$ axis.
+
+Once again, we can use rotations to get arbitrary projections, although it might be easier to wait until \ref{sec:sysofcoordsapps} to try to write down matrices for more complicated projections onto planes or higher dimensional subspaces.  
+However, in the case of lines, you can use dot-products and geometric intuition to come up with projection matrices.
+The following slightly tricky exercise is worth doing; draw a picture and see where the standard basis vectors go!
+\begin{TrickyEx}
+  Let $\vec{x}\in\R^n$, and for simplicity assume $\|\vec{x}\|=1$ (that is, $\vec{x}$ is a unit vector).  
+  Let $L=\spanv{\vec{x}}$.  
+  What is the matrix for the orthogonal projection onto $L$.  
+\end{TrickyEx}
 
 \exersisesn
 
 \section{Composition and Matrix Multiplication}
+
+\label{sec:matmultsec}
 
 What sort of things can we do with functions.
 If we have two functions, $f$ and $g$, and the codomain of $g$ is the domain of $f$ (or more generally the range of $g$ is a subset of the domain of $f$), we can form the composition $f\circ g$.  
@@ -173,6 +289,11 @@ This leads, quite abstractly, to the definition of matrix multiplication
   It is not true that, if $A$ and $B$ are both $n\times n$ matrices, then $AB=BA$.
   In fact, most matrices have this property, so be careful when doing matrix algebra not to flip the order!
 \end{Remark}
+
+\begin{Warning}
+  Now that you've read about matrix multiplication, make sure you go back and (re)-read  \ref{sec:examplelintranssec}.
+  This chapter will give you some nice examples of how to make matrix multiplication work for you.
+\end{Warning}
 
 \exersiseso
 
