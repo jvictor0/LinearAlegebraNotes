@@ -388,6 +388,74 @@ We end with two important theorems which we opt not to prove, since the proofs r
 
 \section{Quadratic Forms}
 
+Chances are, when you first started studying algebraic equations, you started with linear ones $mx+b$ and eventually moved up to quadratic ones.  
+You might have even learned a song to help find the zeros of $ax^2+bx+c$.
+If the linear equations are supposed to generalize to $\vec{m}\cdot\vec{x}+b$, what is the situation with quadratics?
+Lets start as always by thinking about $\R^2$ (for no reason but concreteness).
+In this case, a linear equation is of the form
+\[m_1x + m_2y + b\]
+What is our quadratic term.
+Well, it should have something like
+\[a_1x^2 + a_2y^2\]
+But wait, we could also have a ``degree-2'' term $xy$, and look like
+\[a_1x^2 + a_2y^2 + a_3xy\]
+\begin{EasyEx}
+  \label{sec:quad2}
+  Show that
+  \[\left(\begin{array}{cc} x & y \end{array}\right)\left(\begin{array}{cc} a_1 & \frac{a_3}{2} \\ \frac{a_3}{2} & a_2\end{array}\right)\vect{x\\y} = a_1x^2 + a_2y^2 + a_3xy \]
+\end{EasyEx}
+We use this as a jumping off point for the definition
+\begin{Def}[Quadratic Form]
+  A quadratic form is a function $Q:\R^n\to \R$ of the form
+  \[Q(\vec{x}) = \sum_{i=1}^n \sum_{j=1}^n a_{i,j}x_ix_j\]
+  The matrix of a quadratic form is the \emph{symmetric} $n\times n$ matrix with entries $a_{i,j}$.  
+\end{Def}
+\begin{EasyEx}
+  If $Q$ is a quadratic form with matrix $A$, show
+  \[Q(\vec{x})=\vec{x}^TA\vec{x}\]
+  (hint: this is basically just \ref{sec:quad2})
+\end{EasyEx}
+\begin{Ex}
+  Why do you think we require the matrix of a quadratic form be symmetric?
+\end{Ex}
+Recall that one nice thing about quadratics is that it is easy to tell if they are always positive of always negative.
+A 1-dimension quadratic form is just the term $ax^2$, which is almost always positive if $a>0$, almost always negative if $a<0$, and always zero if $a=0$.
+We can make a similar classification of quadratic forms
+\begin{Def}[Definiteness of a Quadratic Form]\ \\
+  \begin{enumerate}[]
+    \item A quadratic form $Q$ is positive definite if $Q(\vec{x})>0$ when $\vec{x}\ne \vec{0}$.
+    \item A quadratic form $Q$ is positive semi-definite if $Q(\vec{x})\ge 0$ always.
+    \item A quadratic form $Q$ is negative (semi-)definite in the opposite case.
+    \item A quadratic form $Q$ is indefinite otherwise.  
+    \end{enumerate}
+\end{Def}
+\begin{EasyEx}
+  \label{sec:defclass}
+  Sometimes it is easy to classify matrices quadratic forms.
+  Classify the following
+  \[\left(\begin{array}{cc}1 & 0 \\ 0 & 1\end{array}\right)\hspace{10mm}
+  \left(\begin{array}{cc}-1 & 0 \\ 0 & -1\end{array}\right)\hspace{10mm}
+  \left(\begin{array}{cc}1 & 0 \\ 0 & -1\end{array}\right)\hspace{10mm}
+  \left(\begin{array}{cc}1 & 0 \\ 0 & 0\end{array}\right)\]
+\end{EasyEx}
+\begin{ImportantRemark}
+  Locally, derivatives are like linear terms and second derivatives are like quadratic ones.
+  This intuition holds in many variables, the second derivative of a multi-variable function will be locally a quadratic form called the Hessian.
+  The definiteness of this quadratic form will be the multi-variable version of the second-derivative-test for local extrema, just like in calculus.
+\end{ImportantRemark} 
+Luckily, there is an easy way to classify the definiteness of an arbitrary matrix.  
+First, though, we need the following exercise.  
+\begin{ImpEx}
+  If two matrices are similar, show that they have the same definiteness.
+\end{ImpEx}
+But by the spectral theorem, any symmetric matrix is similar to a diagonal one with the eigenvalues on the diagonal.
+Thus
+\begin{ImpEx}
+  Say how to find the definiteness of a matrix given its eigenvalues.
+  (hint: \ref{sec:defclass})
+\end{ImpEx}
+
+
 \exersisesu
 
 \end{document}
